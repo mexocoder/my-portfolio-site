@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #0f172a;
+    color: #f8fafc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.card {
+    background: #1e293b;
+    padding: 2.5rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    border: 1px solid #334155;
+    position: relative;
+}
+
+/* Стили плашки Owner */
+.owner-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    color: #38bdf8;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    margin-bottom: 1.5rem;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #22c55e;
+}
+
+h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+    color: #f8fafc;
+}
+
+p {
+    color: #94a3b8;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.tags {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.tags span {
+    background: #0284c7;
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.btn {
+    display: inline-block;
+    background: #22c55e;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: #16a34a;
+    transform: translateY(-2px);
+}
