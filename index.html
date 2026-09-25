@@ -31,7 +31,6 @@
             min-height: 100vh;
         }
 
-        /* --- PRELOADER ANIMATION --- */
         #loader {
             position: fixed;
             top: 0;
@@ -78,7 +77,6 @@
             text-shadow: 0 0 10px var(--neon-blue);
         }
 
-        /* --- BACKGROUND CANVAS --- */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -88,7 +86,6 @@
             z-index: -1;
         }
 
-        /* --- LAYOUT --- */
         .container {
             max-width: 900px;
             margin: 0 auto;
@@ -127,7 +124,6 @@
             font-size: 1rem;
         }
 
-        /* --- CONTENT CARDS --- */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border-glow);
@@ -161,7 +157,6 @@
             font-size: 0.95rem;
         }
 
-        /* --- CODE BLOCK --- */
         .code-block {
             background: #030508;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -179,7 +174,6 @@
         .code-str { color: #f1fa8c; }
         .code-comment { color: #6272a4; }
 
-        /* --- FOOTER --- */
         footer {
             margin-top: 60px;
             text-align: center;
@@ -221,72 +215,69 @@
 </head>
 <body>
 
-    <!-- ANIMATED PRELOADER -->
     <div id="loader">
         <div class="cube-wrapper">
             <div class="cube-face"></div>
         </div>
-        <div class="loader-text">INITIALIZING PYTHON CORE...</div>
+        <div class="loader-text">LOADING MEXO CORE...</div>
     </div>
 
-    <!-- NEON CANVAS BACKGROUND -->
     <canvas id="bg-canvas"></canvas>
 
     <div class="container">
         <header>
-            <div class="badge">🐍 Interactive Dev Guide</div>
-            <h1>Основы Python & Архитектура</h1>
-            <p class="subtitle">Базовый минимум: от синтаксиса до работы интерпретатора</p>
+            <div class="badge">🐍 Python Dev Hub</div>
+            <h1>База по Python и под капотом</h1>
+            <p class="subtitle">Быстрый разбор: от базового синтаксиса до работы интерпретатора</p>
         </header>
 
         <main>
             <!-- CARD 1 -->
             <div class="card">
-                <h2>⚡ 1. Что такое Python?</h2>
-                <p>Python — это высокоуровневый интерпретируемый язык программирования с динамической типизацией. Он идеально подходит для веб-разработки, асинхронных Telegram-ботов, ИИ и скриптов автоматизации.</p>
+                <h2>⚡ 1. Что вообще за Python?</h2>
+                <p>Python - это скриптовый язык с динамической типизацией. На нем удобно пишется всё: от простых скриптов автоматизации до асинхронных ТГ-ботов на aiogram и работы с нейросетями.</p>
             </div>
 
             <!-- CARD 2 -->
             <div class="card">
-                <h2>📦 2. Переменные и Типы данных</h2>
-                <p>В Python переменная создается автоматически при присвоении ей значения. Тип данных определяется динамически на этапе выполнения.</p>
+                <h2>📦 2. Переменные и типы данных</h2>
+                <p>В питоне не нужно вручную объявлять типы как в C++. Язык сам понимает, что за значение лежит в переменной прямо во время выполнения кода.</p>
                 <div class="code-block">
-<span class="code-comment"># Основные типы данных в Python</span>
-name = <span class="code-str">"MexoMC"</span>        <span class="code-comment"># str (строка)</span>
-age = <span class="code-keyword">15</span>              <span class="code-comment"># int (целое число)</span>
-is_dev = <span class="code-keyword">True</span>         <span class="code-comment"># bool (логический тип)</span>
+<span class="code-comment"># объявляем переменные</span>
+name = <span class="code-str">"MexoMC"</span>        <span class="code-comment"># обычная строка</span>
+age = <span class="code-keyword">15</span>              <span class="code-comment"># число (int)</span>
+is_dev = <span class="code-keyword">True</span>         <span class="code-comment"># булево значение</span>
 
-<span class="code-func">print</span>(f<span class="code-str">"Разработчик: {name}, Возраст: {age}"</span>)
+<span class="code-comment"># вывод через f-строку (самый удобный способ)</span>
+<span class="code-func">print</span>(f<span class="code-str">"Автор: {name}, возраст: {age}"</span>)
                 </div>
             </div>
 
             <!-- CARD 3 -->
             <div class="card">
-                <h2>⚙️ 3. Как работает интерпретатор?</h2>
-                <p>В отличие от компилируемых языков (C++, Rust), исходный код Python (<code>.py</code>) сначала переводится в байт-код (<code>.pyc</code>), а затем исполняется виртуальной машиной Python (PVM — Python Virtual Machine).</p>
+                <h2>⚙️ 3. Как это работает под капотом?</h2>
+                <p>Питон не компилирует код напрямую в машинные нули и единицы. Сначала файл .py переводится в байт-код (.pyc), а уже потом виртуальная машина PVM читает его и выполняет.</p>
                 <div class="code-block">
- Исходный код (.py) ➔ Байт-код (.pyc) ➔ PVM (Виртуальная машина) ➔ Выполнение
+Код (.py) -> Байт-код (.pyc) -> PVM (Python Virtual Machine) -> Результат
                 </div>
             </div>
         </main>
 
         <footer>
-            <div class="author-tag">Разработано: <span>@MexoMC</span></div>
-            <a href="https://t.me/mexomc" target="_blank" class="btn-tg">💬 Написать в Telegram</a>
+            <div class="author-tag">Сделано руками: <span>@MexoMC</span></div>
+            <a href="https://t.me/mexomc" target="_blank" class="btn-tg">💬 Написать в ТГ</a>
         </footer>
     </div>
 
     <script>
-        // --- PRELOADER HIDE ---
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const loader = document.getElementById('loader');
                 loader.style.opacity = '0';
                 loader.style.visibility = 'hidden';
-            }, 1000);
+            }, 800);
         });
 
-        // --- BACKGROUND NEON PARTICLES ---
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
