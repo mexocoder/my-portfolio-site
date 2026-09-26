@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>№6 Токтогул атындагы мектеп | Санариптик портал</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #080b10;
-            --card-bg: rgba(15, 23, 42, 0.8);
+            --bg-color: #06090e;
+            --card-bg: rgba(13, 20, 36, 0.75);
             --neon-blue: #00f0ff;
             --neon-purple: #7000ff;
             --neon-green: #00ff88;
             --text-main: #f1f5f9;
             --text-dim: #94a3b8;
-            --border-glow: rgba(0, 240, 255, 0.25);
+            --border-glow: rgba(0, 240, 255, 0.2);
         }
 
         * {
@@ -31,33 +31,25 @@
             min-height: 100vh;
         }
 
+        /* LOADER */
         #loader {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #05070a;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #04060a;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
             z-index: 9999;
             transition: opacity 0.8s ease, visibility 0.8s;
         }
 
         .cube-wrapper {
-            position: relative;
-            width: 60px;
-            height: 60px;
+            width: 60px; height: 60px;
             transform-style: preserve-3d;
             animation: rotateCube 2s infinite linear;
         }
 
         .cube-face {
-            position: absolute;
-            width: 60px;
-            height: 60px;
+            width: 60px; height: 60px;
             border: 2px solid var(--neon-blue);
             box-shadow: 0 0 15px var(--neon-blue);
             background: rgba(0, 240, 255, 0.1);
@@ -79,17 +71,58 @@
 
         #bg-canvas {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
+        }
+
+        /* NAVBAR & LANG SWITCHER */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-logo {
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+            color: var(--neon-blue);
+            font-size: 0.95rem;
+            text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+        }
+
+        .lang-switch {
+            display: flex;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 3px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            padding: 6px 14px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 10px var(--neon-blue);
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 20px 20px 60px 20px;
         }
 
         header {
@@ -111,7 +144,7 @@
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 2.1rem;
             font-weight: 800;
             background: linear-gradient(135deg, #fff 0%, var(--neon-blue) 100%);
             -webkit-background-clip: text;
@@ -125,19 +158,28 @@
             font-size: 0.95rem;
         }
 
+        /* CARD STYLES WITH TILT & SCROLL REVEAL */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border-glow);
             border-radius: 16px;
             padding: 25px;
             margin-bottom: 25px;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            transition: transform 0.4s ease, border-color 0.3s ease, opacity 0.6s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .card:hover {
-            transform: translateY(-3px);
             border-color: var(--neon-blue);
             box-shadow: 0 10px 30px rgba(0, 240, 255, 0.15);
         }
@@ -145,7 +187,7 @@
         .card h2 {
             font-size: 1.3rem;
             color: var(--neon-blue);
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -163,8 +205,8 @@
         }
 
         .card li {
-            margin-bottom: 8px;
-            padding-left: 20px;
+            margin-bottom: 10px;
+            padding-left: 24px;
             position: relative;
         }
 
@@ -172,13 +214,13 @@
             content: "🔹";
             position: absolute;
             left: 0;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
         }
 
         /* STATS GRID */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 15px;
             margin-top: 15px;
         }
@@ -187,21 +229,120 @@
             background: rgba(0, 240, 255, 0.05);
             border: 1px solid rgba(0, 240, 255, 0.2);
             border-radius: 12px;
-            padding: 15px;
+            padding: 18px 12px;
             text-align: center;
         }
 
         .stat-num {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 800;
             color: var(--neon-blue);
             font-family: 'Fira Code', monospace;
         }
 
         .stat-desc {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-dim);
             margin-top: 5px;
+        }
+
+        /* BELL SCHEDULE TABLE */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .schedule-table th, .schedule-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.9rem;
+        }
+
+        .schedule-table th {
+            color: var(--neon-blue);
+            font-weight: 600;
+        }
+
+        .schedule-table td {
+            color: var(--text-dim);
+        }
+
+        /* FAQ ACCORDION */
+        .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 0;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, margin-top 0.4s ease;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            margin-top: 10px;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+            color: var(--neon-blue);
+        }
+
+        .faq-toggle {
+            transition: transform 0.3s ease;
+        }
+
+        /* FORM STYLES */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(5, 8, 15, 0.8);
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
         }
 
         .highlight-box {
@@ -222,9 +363,7 @@
         }
 
         iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
+            width: 100%; height: 100%; border: 0;
         }
 
         footer {
@@ -277,128 +416,159 @@
 
     <canvas id="bg-canvas"></canvas>
 
+    <nav>
+        <div class="nav-logo">№6 Digital Hub</div>
+        <div class="lang-switch">
+            <button class="lang-btn active" onclick="setLanguage('ky')">KY</button>
+            <button class="lang-btn" onclick="setLanguage('ru')">RU</button>
+        </div>
+    </nav>
+
     <div class="container">
         <header>
-            <div class="badge">📍 Кызыл-Кыя ш. | Баткен облусу</div>
-            <h1>№6 Токтогул атындагы жалпы билим берүү мектеби</h1>
-            <p class="subtitle">Интерактивдүү расмий санариптик веб-порталы</p>
+            <div class="badge" id="txt-badge">📍 Кызыл-Кыя ш. | Баткен облусу</div>
+            <h1 id="txt-title">№6 Токтогул атындагы жалпы билим берүү мектеби</h1>
+            <p class="subtitle" id="txt-subtitle">Интерактивдүү расмий санариптик веб-порталы</p>
         </header>
 
         <main>
             <!-- CARD 1: GENERAL INFO -->
             <div class="card">
-                <h2>🏫 Мектеп жөнүндө маалымат</h2>
-                <p>Кызыл-Кыя шаарындагы №6 Токтогул атындагы толук жалпы билим берүү мектеби окуучуларга заманбап билим берүү, IT-технологияларды өздөштүрүү жана ар тараптуу өнүгүү үчүн бардык шарттарды түзөт.</p>
+                <h2 id="card1-title">🏫 Мектеп жөнүндө маалымат</h2>
+                <p id="card1-desc">Кызыл-Кыя шаарындагы №6 Токтогул атындагы толук жалпы билим берүү мектеби окуучуларга заманбап билим берүү, санариптик технологияларды өздөштүрүү жана ар тараптуу өнүгүү үчүн бардык шарттарды түзөт.</p>
                 
-                <div class="highlight-box">
+                <div class="highlight-box" id="card1-box">
                     <strong>📌 Дареги:</strong> Кыргызстан, Баткен облусу, Кызыл-Кыя шаары, Жамал көчөсү, 1.<br>
-                    <strong>🎓 Билим берүү деңгээли:</strong> Толук жалпы билим берүү (1-11-класстар).
+                    <strong>🎓 Билим берүү тили:</strong> Кыргыз тили жана Орус тили.<br>
+                    <strong>🕒 Окуу тартиби:</strong> 2 нөөмөт (смена).
                 </div>
             </div>
 
-            <!-- CARD 2: SCHOOL STATS & INFRASTRUCTURE -->
+            <!-- CARD 2: SCHOOL STATS -->
             <div class="card">
-                <h2>📊 Мектептин көрсөткүчтөрү жана инфраструктурасы</h2>
-                <p>Мектеп окуучулардын сапаттуу билим алуусу үчүн заманбап окуу кабинеттери жана жабдуулар менен камсыздалган.</p>
+                <h2 id="card2-title">📊 Мектептин негизги көрсөткүчтөрү</h2>
+                <p id="card2-desc">Мектепте сапаттуу билим берүү үчүн чоң педагогикалык жамаат жана заманбап окуу базасы түзүлгөн.</p>
 
                 <div class="stats-grid">
                     <div class="stat-item">
-                        <div class="stat-num">45</div>
-                        <div class="stat-desc">Окуу кабинети</div>
+                        <div class="stat-num" data-target="1200">0</div>
+                        <div class="stat-desc" id="st-students">Окуучулар</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-num">1-11</div>
-                        <div class="stat-desc">Класстар</div>
+                        <div class="stat-num" data-target="50">0</div>
+                        <div class="stat-desc" id="st-teachers">Мугалимдер</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-num">IT</div>
-                        <div class="stat-desc">Компьютердик класс</div>
+                        <div class="stat-num" data-target="45">0</div>
+                        <div class="stat-desc" id="st-rooms">Окуу кабинети</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-num">100%</div>
-                        <div class="stat-desc">Заманбап билим</div>
+                        <div class="stat-num" data-target="2">0</div>
+                        <div class="stat-desc" id="st-shifts">Окуу сменасы</div>
                     </div>
                 </div>
             </div>
 
-            <!-- CARD 3: SCHOOL ADVANTAGES -->
+            <!-- CARD 3: ADMINISTRATION -->
             <div class="card">
-                <h2>🌟 Мектептин артыкчылыктары</h2>
-                <ul>
-                    <li>Тажрыйбалуу мугалимдер курамы жана заманбап окутуу усулдары.</li>
-                    <li>Информатика жана заманбап IT-технологиялар сабактары.</li>
-                    <li>Окуучулардын олимпиадаларга жана илимий долбоорлорго даярдыгы.</li>
-                    <li>Спорттук жана маданий иш-чаралар үчүн активдүү чөйрө.</li>
+                <h2 id="card3-title">🏛 Мектеп жетекчилиги</h2>
+                <ul id="card3-list">
+                    <li><strong>Мектеп директору:</strong> Сарытаева Д. Т.</li>
+                    <li><strong>Педагогикалык курам:</strong> 50дөн ашык жогорку квалификациялуу мугалимдер жана адистер.</li>
                 </ul>
             </div>
 
-            <!-- CARD 4: GOOGLE MAPS LOCATION -->
+            <!-- CARD 4: INFRASTRUCTURE -->
             <div class="card">
-                <h2>📍 Мектептин жайгашкан жери (Карта)</h2>
-                <p>Мектептин толук дарегин Google Картадан көрө аласыз:</p>
-                <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3056.417387140417!2d72.1250!3d40.2570!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDE1JzI1LjIiTiA3MsKwMDcnMzAuMCJF!5e0!3m2!1sru!2skg!4v1600000000000!5m2!1sru!2skg" allowfullscreen="" loading="lazy"></iframe>
+                <h2 id="card4-title">🏢 Инфраструктура жана шарттар</h2>
+                <p id="card4-desc">Мектеп окуучулардын билим алуусу, спорт менен машыгуусу жана чыгармачылыгы үчүн бардык керектүү жабдуулар менен камсыздалган:</p>
+                <ul id="card4-list">
+                    <li><strong>Информатика кабинети:</strong> Атайын компьютердик техника менен жабдылган IT-класс.</li>
+                    <li><strong>Заманбап жабдуулар:</strong> Окуу кабинеттеринде ПК, ноутбуктар жана интерактивдүү доскалар.</li>
+                    <li><strong>Тренинг залы:</strong> Окуучулардын жана мугалимдердин өнүгүүсү үчүн атайын тренингдик зал.</li>
+                    <li><strong>Спорттук комплекс:</strong> Чоң спорт залы жана дене тарбия үчүн шарттар.</li>
+                    <li><strong>Социалдык зоналар:</strong> Китепкана, Актовый зал жана мектеп ашканасы.</li>
+                </ul>
+            </div>
+
+            <!-- CARD 5: BELL SCHEDULE -->
+            <div class="card">
+                <h2 id="card5-title">⏱️ Коңгуроолордун расписаниеси</h2>
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th id="th-lesson">Сабак</th>
+                            <th id="th-s1">1-нөөмөт (Смена)</th>
+                            <th id="th-s2">2-нөөмөт (Смена)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1-сабак</td><td>08:00 - 08:45</td><td>13:00 - 13:45</td></tr>
+                        <tr><td>2-сабак</td><td>08:50 - 09:35</td><td>13:50 - 14:35</td></tr>
+                        <tr><td>3-сабак</td><td>09:40 - 10:25</td><td>14:40 - 15:25</td></tr>
+                        <tr><td>4-сабак</td><td>10:35 - 11:20</td><td>15:35 - 16:20</td></tr>
+                        <tr><td>5-сабак</td><td>11:25 - 12:10</td><td>16:25 - 17:10</td></tr>
+                        <tr><td>6-сабак</td><td>12:15 - 13:00</td><td>17:15 - 18:00</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- CARD 6: ACHIEVEMENTS -->
+            <div class="card">
+                <h2 id="card6-title">🏆 Биздин сыймыгыбыз жана жетишкендиктер</h2>
+                <ul id="card6-list">
+                    <li>Шаардык жана облустук олимпиадалардын байгелүү орундары.</li>
+                    <li>IT жана программалоо боюнча мектеп окуучуларынын долбоорлору.</li>
+                    <li>Спорттук мелдештерде жана маданий иш-чараларда алдыңкы орундар.</li>
+                </ul>
+            </div>
+
+            <!-- CARD 7: FAQ ACCORDION -->
+            <div class="card">
+                <h2 id="card7-title">❓ Көп берилүүчү суроолор (FAQ)</h2>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span id="q1">1. Мектепке кабыл алуу үчүн кандай документтер керек?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer" id="a1">Окуучунун туулгандыгы тууралуу күбөлүгү, ата-энесинин паспортунун көчүрмөсү, 3x4 сүрөт (4 даана) жана медициналык маалымкат керектелет.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span id="q2">2. Экинчи смена саат канчада башталат?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer" id="a2">Экинчи нөөмөт (смена) саат 13:00дө башталат.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span id="q3">3. Мектепте кандай ийримдер бар?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer" id="a3">Информатика жана программалоо, спорттук секциялар (волейбол, баскетбол), тил үйрөнүү курстары.</div>
                 </div>
             </div>
-        </main>
 
-        <footer>
-            <div class="author-tag">Порталды иштеп чыккан (10-класс окуучусу): <span>@MexoMC</span></div>
-            <a href="https://t.me/mexomc" target="_blank" class="btn-tg">💬 Написать в Telegram</a>
-        </footer>
-    </div>
+            <!-- CARD 8: ONLINE RECEPTION FORM -->
+            <div class="card">
+                <h2 id="card8-title">📩 Онлайн-приёмная / Сунуш-пикир калтыруу</h2>
+                <form onsubmit="event.preventDefault(); alert('Билдирүүңүз жөнөтүлдү!');">
+                    <div class="form-group">
+                        <input type="text" class="form-input" id="f-name" placeholder="Аты-жөнүңүз" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-input" id="f-contact" placeholder="Телефон же Telegram" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-textarea" rows="3" id="f-msg" placeholder="Сунушуңуз же сурооңуз..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit" id="f-btn">Жөнөтүү</button>
+                </form>
+            </div>
 
-    <script>
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const loader = document.getElementById('loader');
-                loader.style.opacity = '0';
-                loader.style.visibility = 'hidden';
-            }, 800);
-        });
-
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        const particles = [];
-        for(let i = 0; i < 40; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                radius: Math.random() * 2 + 1,
-                dx: (Math.random() - 0.5) * 0.5,
-                dy: (Math.random() - 0.5) * 0.5,
-                color: Math.random() > 0.5 ? '#00f0ff' : '#7000ff'
-            });
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            particles.forEach(p => {
-                p.x += p.dx;
-                p.y += p.dy;
-
-                if(p.x < 0 || p.x > canvas.width) p.dx *= -1;
-                if(p.y < 0 || p.y > canvas.height) p.dy *= -1;
-
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = p.color;
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = p.color;
-                ctx.fill();
-            });
-        }
-        animate();
-    </script>
-</body>
-</html>
+            <!-- CARD 9: GOOGLE MAPS LOCATION -->
+            <div class="card">
+                <h2 id="card9-title">📍 Мектептин жайгашкан жери (Карта)</h2>
+                <p id="card9-desc">Мектептин толук дарегин Google Картадан көрө аласыз:</p>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3056.417387140417!2d72.1250!3d40.2570!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDE1JzI1LjIiTiA3MsKwMDcnMzAuMCJF!5e0!3
