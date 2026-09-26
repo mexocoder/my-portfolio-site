@@ -175,6 +175,35 @@
             font-size: 0.8rem;
         }
 
+        /* STATS GRID */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--neon-blue);
+            font-family: 'Fira Code', monospace;
+        }
+
+        .stat-desc {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-top: 5px;
+        }
+
         .highlight-box {
             background: rgba(0, 240, 255, 0.05);
             border-left: 4px solid var(--neon-blue);
@@ -267,25 +296,39 @@
                 </div>
             </div>
 
-            <!-- CARD 2: COMPUTER CLASS ROOM 45 -->
+            <!-- CARD 2: SCHOOL STATS & INFRASTRUCTURE -->
             <div class="card">
-                <h2>💻 Санариптик класс (Информатика кабинети)</h2>
-                <p>Мектепте заманбап компьютердик кабинеттер жана IT-инфраструктура өнүгүп келет.</p>
-                <ul>
-                    <li><strong>Кабинет №45:</strong> Информатика жана программалоо сабагы өтүлүүчү башкы IT-борбор.</li>
-                    <li><strong>Окутуу багыттары:</strong> Компьютердик сабаттуулук, алгоритмдер, алгоритмдөө жана веб-иштеп чыгуу.</li>
-                    <li>Окуучулардын өз алдынча IT-проекттерин колдоо.</li>
-                </ul>
+                <h2>📊 Мектептин көрсөткүчтөрү жана инфраструктурасы</h2>
+                <p>Мектеп окуучулардын сапаттуу билим алуусу үчүн заманбап окуу кабинеттери жана жабдуулар менен камсыздалган.</p>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-num">45</div>
+                        <div class="stat-desc">Окуу кабинети</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">1-11</div>
+                        <div class="stat-desc">Класстар</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">IT</div>
+                        <div class="stat-desc">Компьютердик класс</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num">100%</div>
+                        <div class="stat-desc">Заманбап билим</div>
+                    </div>
+                </div>
             </div>
 
-            <!-- CARD 3: SCHOOL FEATURES -->
+            <!-- CARD 3: SCHOOL ADVANTAGES -->
             <div class="card">
                 <h2>🌟 Мектептин артыкчылыктары</h2>
                 <ul>
                     <li>Тажрыйбалуу мугалимдер курамы жана заманбап окутуу усулдары.</li>
+                    <li>Информатика жана заманбап IT-технологиялар сабактары.</li>
                     <li>Окуучулардын олимпиадаларга жана илимий долбоорлорго даярдыгы.</li>
                     <li>Спорттук жана маданий иш-чаралар үчүн активдүү чөйрө.</li>
-                    <li>Заманбап веб-технологияларды мектеп турмушуна киргизүү.</li>
                 </ul>
             </div>
 
