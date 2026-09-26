@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Core Guide | MexoMC</title>
+    <title>№6 Токтогул атындагы мектеп | Digital Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -71,7 +71,7 @@
         .loader-text {
             margin-top: 25px;
             font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--neon-blue);
             letter-spacing: 2px;
             text-shadow: 0 0 10px var(--neon-blue);
@@ -94,7 +94,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
         .badge {
@@ -111,17 +111,18 @@
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 800;
             background: linear-gradient(135deg, #fff 0%, var(--neon-blue) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
+            line-height: 1.3;
         }
 
         .subtitle {
             color: var(--text-dim);
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
         .card {
@@ -142,9 +143,9 @@
         }
 
         .card h2 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: var(--neon-blue);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -166,7 +167,6 @@
             font-size: 0.85rem;
             color: #e2e8f0;
             overflow-x: auto;
-            position: relative;
         }
 
         .code-keyword { color: #ff79c6; }
@@ -175,7 +175,7 @@
         .code-comment { color: #6272a4; }
 
         footer {
-            margin-top: 60px;
+            margin-top: 50px;
             text-align: center;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-top: 30px;
@@ -219,53 +219,51 @@
         <div class="cube-wrapper">
             <div class="cube-face"></div>
         </div>
-        <div class="loader-text">LOADING MEXO CORE...</div>
+        <div class="loader-text">LOADING SCHOOL DIGITAL HUB...</div>
     </div>
 
     <canvas id="bg-canvas"></canvas>
 
     <div class="container">
         <header>
-            <div class="badge">🐍 Python Dev Hub</div>
-            <h1>База по Python и под капотом</h1>
-            <p class="subtitle">Быстрый разбор: от базового синтаксиса до работы интерпретатора</p>
+            <div class="badge">📍 Кызыл-Кыя ш. | Баткен облусу</div>
+            <h1>№6 Токтогул атындагы жалпы билим берүү мектеби</h1>
+            <p class="subtitle">Интерактивдүү санариптик портал жана IT-платформа</p>
         </header>
 
         <main>
-            <!-- CARD 1 -->
+            <!-- CARD 1: ABOUT SCHOOL -->
             <div class="card">
-                <h2>⚡ 1. Что вообще за Python?</h2>
-                <p>Python - это скриптовый язык с динамической типизацией. На нем удобно пишется всё: от простых скриптов автоматизации до асинхронных ТГ-ботов на aiogram и работы с нейросетями.</p>
+                <h2>🏫 Мектеп жөнүндө / О школе</h2>
+                <p>Кызыл-Кыя шаарындагы №6 Токтогул атындагы жалпы билим берүү мектеби. Бул портал окуучулардын IT-проекттерин көрсөтүү жана программалоону өнүктүрүү үчүн түзүлгөн.</p>
             </div>
 
-            <!-- CARD 2 -->
+            <!-- CARD 2: IT CLUB -->
             <div class="card">
-                <h2>📦 2. Переменные и типы данных</h2>
-                <p>В питоне не нужно вручную объявлять типы как в C++. Язык сам понимает, что за значение лежит в переменной прямо во время выполнения кода.</p>
+                <h2>💻 IT-Модуль: Основы Python</h2>
+                <p>Python - один из самых популярных языков в мире. Он используется для создания веб-сайтов, асинхронных Telegram-ботов и работы с искусственным интеллектом.</p>
                 <div class="code-block">
-<span class="code-comment"># объявляем переменные</span>
-name = <span class="code-str">"MexoMC"</span>        <span class="code-comment"># обычная строка</span>
-age = <span class="code-keyword">15</span>              <span class="code-comment"># число (int)</span>
-is_dev = <span class="code-keyword">True</span>         <span class="code-comment"># булево значение</span>
+<span class="code-comment"># Пример базового кода на Python</span>
+school_name = <span class="code-str">"№6 Токтогул атындагы мектеп"</span>
+city = <span class="code-str">"Кызыл-Кыя"</span>
 
-<span class="code-comment"># вывод через f-строку (самый удобный способ)</span>
-<span class="code-func">print</span>(f<span class="code-str">"Автор: {name}, возраст: {age}"</span>)
+<span class="code-func">print</span>(f<span class="code-str">"Добро пожаловать в цифровой хаб: {school_name} ({city})"</span>)
                 </div>
             </div>
 
-            <!-- CARD 3 -->
+            <!-- CARD 3: HOW PYTHON WORKS -->
             <div class="card">
-                <h2>⚙️ 3. Как это работает под капотом?</h2>
-                <p>Питон не компилирует код напрямую в машинные нули и единицы. Сначала файл .py переводится в байт-код (.pyc), а уже потом виртуальная машина PVM читает его и выполняет.</p>
+                <h2>⚙️ Как работает код под капотом?</h2>
+                <p>Исходный код Python (.py) не исполняется напрямую процессором. Сначала он транслируется в байт-код (.pyc), который затем выполняется виртуальной машиной PVM (Python Virtual Machine).</p>
                 <div class="code-block">
-Код (.py) -> Байт-код (.pyc) -> PVM (Python Virtual Machine) -> Результат
+Код (.py) -> Байт-код (.pyc) -> PVM (Виртуальная машина) -> Выполнение
                 </div>
             </div>
         </main>
 
         <footer>
-            <div class="author-tag">Сделано руками: <span>@MexoMC</span></div>
-            <a href="https://t.me/mexomc" target="_blank" class="btn-tg">💬 Написать в ТГ</a>
+            <div class="author-tag">Иштеп чыккан (10-класс): <span>@MexoMC</span></div>
+            <a href="https://t.me/mexomc" target="_blank" class="btn-tg">💬 Написать в Telegram</a>
         </footer>
     </div>
 
