@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ky">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>№6 Токтогул атындагы мектеп | Digital Hub</title>
+    <title>№6 Токтогул атындагы мектеп | Санариптик портал</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #080b10;
-            --card-bg: rgba(15, 23, 42, 0.75);
+            --card-bg: rgba(15, 23, 42, 0.8);
             --neon-blue: #00f0ff;
             --neon-purple: #7000ff;
             --neon-green: #00ff88;
             --text-main: #f1f5f9;
             --text-dim: #94a3b8;
-            --border-glow: rgba(0, 240, 255, 0.2);
+            --border-glow: rgba(0, 240, 255, 0.25);
         }
 
         * {
@@ -151,28 +151,52 @@
             gap: 10px;
         }
 
-        .card p {
+        .card p, .card li {
             color: var(--text-dim);
             line-height: 1.6;
-            margin-bottom: 15px;
             font-size: 0.95rem;
         }
 
-        .code-block {
-            background: #030508;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 15px;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.85rem;
-            color: #e2e8f0;
-            overflow-x: auto;
+        .card ul {
+            list-style: none;
+            padding-left: 0;
         }
 
-        .code-keyword { color: #ff79c6; }
-        .code-func { color: #50fa7b; }
-        .code-str { color: #f1fa8c; }
-        .code-comment { color: #6272a4; }
+        .card li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .card li::before {
+            content: "🔹";
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+        }
+
+        .highlight-box {
+            background: rgba(0, 240, 255, 0.05);
+            border-left: 4px solid var(--neon-blue);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 15px;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 300px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-glow);
+            margin-top: 15px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
 
         footer {
             margin-top: 50px;
@@ -219,7 +243,7 @@
         <div class="cube-wrapper">
             <div class="cube-face"></div>
         </div>
-        <div class="loader-text">LOADING SCHOOL DIGITAL HUB...</div>
+        <div class="loader-text">LOADING SCHOOL PORTAL...</div>
     </div>
 
     <canvas id="bg-canvas"></canvas>
@@ -228,41 +252,55 @@
         <header>
             <div class="badge">📍 Кызыл-Кыя ш. | Баткен облусу</div>
             <h1>№6 Токтогул атындагы жалпы билим берүү мектеби</h1>
-            <p class="subtitle">Интерактивдүү санариптик портал жана IT-платформа</p>
+            <p class="subtitle">Интерактивдүү расмий санариптик веб-порталы</p>
         </header>
 
         <main>
-            <!-- CARD 1: ABOUT SCHOOL -->
+            <!-- CARD 1: GENERAL INFO -->
             <div class="card">
-                <h2>🏫 Мектеп жөнүндө / О школе</h2>
-                <p>Кызыл-Кыя шаарындагы №6 Токтогул атындагы жалпы билим берүү мектеби. Бул портал окуучулардын IT-проекттерин көрсөтүү жана программалоону өнүктүрүү үчүн түзүлгөн.</p>
-            </div>
-
-            <!-- CARD 2: IT CLUB -->
-            <div class="card">
-                <h2>💻 IT-Модуль: Основы Python</h2>
-                <p>Python - один из самых популярных языков в мире. Он используется для создания веб-сайтов, асинхронных Telegram-ботов и работы с искусственным интеллектом.</p>
-                <div class="code-block">
-<span class="code-comment"># Пример базового кода на Python</span>
-school_name = <span class="code-str">"№6 Токтогул атындагы мектеп"</span>
-city = <span class="code-str">"Кызыл-Кыя"</span>
-
-<span class="code-func">print</span>(f<span class="code-str">"Добро пожаловать в цифровой хаб: {school_name} ({city})"</span>)
+                <h2>🏫 Мектеп жөнүндө маалымат</h2>
+                <p>Кызыл-Кыя шаарындагы №6 Токтогул атындагы толук жалпы билим берүү мектеби окуучуларга заманбап билим берүү, IT-технологияларды өздөштүрүү жана ар тараптуу өнүгүү үчүн бардык шарттарды түзөт.</p>
+                
+                <div class="highlight-box">
+                    <strong>📌 Дареги:</strong> Кыргызстан, Баткен облусу, Кызыл-Кыя шаары, Жамал көчөсү, 1.<br>
+                    <strong>🎓 Билим берүү деңгээли:</strong> Толук жалпы билим берүү (1-11-класстар).
                 </div>
             </div>
 
-            <!-- CARD 3: HOW PYTHON WORKS -->
+            <!-- CARD 2: COMPUTER CLASS ROOM 45 -->
             <div class="card">
-                <h2>⚙️ Как работает код под капотом?</h2>
-                <p>Исходный код Python (.py) не исполняется напрямую процессором. Сначала он транслируется в байт-код (.pyc), который затем выполняется виртуальной машиной PVM (Python Virtual Machine).</p>
-                <div class="code-block">
-Код (.py) -> Байт-код (.pyc) -> PVM (Виртуальная машина) -> Выполнение
+                <h2>💻 Санариптик класс (Информатика кабинети)</h2>
+                <p>Мектепте заманбап компьютердик кабинеттер жана IT-инфраструктура өнүгүп келет.</p>
+                <ul>
+                    <li><strong>Кабинет №45:</strong> Информатика жана программалоо сабагы өтүлүүчү башкы IT-борбор.</li>
+                    <li><strong>Окутуу багыттары:</strong> Компьютердик сабаттуулук, алгоритмдер, алгоритмдөө жана веб-иштеп чыгуу.</li>
+                    <li>Окуучулардын өз алдынча IT-проекттерин колдоо.</li>
+                </ul>
+            </div>
+
+            <!-- CARD 3: SCHOOL FEATURES -->
+            <div class="card">
+                <h2>🌟 Мектептин артыкчылыктары</h2>
+                <ul>
+                    <li>Тажрыйбалуу мугалимдер курамы жана заманбап окутуу усулдары.</li>
+                    <li>Окуучулардын олимпиадаларга жана илимий долбоорлорго даярдыгы.</li>
+                    <li>Спорттук жана маданий иш-чаралар үчүн активдүү чөйрө.</li>
+                    <li>Заманбап веб-технологияларды мектеп турмушуна киргизүү.</li>
+                </ul>
+            </div>
+
+            <!-- CARD 4: GOOGLE MAPS LOCATION -->
+            <div class="card">
+                <h2>📍 Мектептин жайгашкан жери (Карта)</h2>
+                <p>Мектептин толук дарегин Google Картадан көрө аласыз:</p>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3056.417387140417!2d72.1250!3d40.2570!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDE1JzI1LjIiTiA3MsKwMDcnMzAuMCJF!5e0!3m2!1sru!2skg!4v1600000000000!5m2!1sru!2skg" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
         </main>
 
         <footer>
-            <div class="author-tag">Иштеп чыккан (10-класс): <span>@MexoMC</span></div>
+            <div class="author-tag">Порталды иштеп чыккан (10-класс окуучусу): <span>@MexoMC</span></div>
             <a href="https://t.me/mexomc" target="_blank" class="btn-tg">💬 Написать в Telegram</a>
         </footer>
     </div>
