@@ -31,13 +31,6 @@
             min-height: 100vh;
         }
 
-        #bg-canvas {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-        }
-
-        /* NAVBAR & LANG SWITCHER */
         nav {
             display: flex;
             justify-content: space-between;
@@ -120,7 +113,6 @@
             font-size: 0.95rem;
         }
 
-        /* CARD STYLES */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border-glow);
@@ -130,7 +122,6 @@
             backdrop-filter: blur(12px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             transition: transform 0.4s ease, border-color 0.3s ease;
-            opacity: 1;
         }
 
         .card:hover {
@@ -171,7 +162,6 @@
             font-size: 0.85rem;
         }
 
-        /* STATS GRID */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -200,7 +190,6 @@
             margin-top: 5px;
         }
 
-        /* BELL SCHEDULE TABLE */
         .schedule-table {
             width: 100%;
             border-collapse: collapse;
@@ -223,7 +212,6 @@
             color: var(--text-dim);
         }
 
-        /* FAQ ACCORDION */
         .faq-item {
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding: 15px 0;
@@ -260,7 +248,6 @@
             transition: transform 0.3s ease;
         }
 
-        /* FORM STYLES */
         .form-group {
             margin-bottom: 15px;
         }
@@ -352,11 +339,10 @@
         </header>
 
         <main>
-            <!-- CARD 1: GENERAL INFO -->
+            <!-- CARD 1 -->
             <div class="card">
                 <h2 id="card1-title">🏫 Мектеп жөнүндө маалымат</h2>
                 <p id="card1-desc">Кызыл-Кыя шаарындагы №6 Токтогул атындагы толук жалпы билим берүү мектеби окуучуларга заманбап билим берүү, санариптик технологияларды өздөштүрүү жана ар тараптуу өнүгүү үчүн бардык шарттарды түзөт.</p>
-                
                 <div class="highlight-box" id="card1-box">
                     <strong>📌 Дареги:</strong> Кыргызстан, Баткен облусу, Кызыл-Кыя шаары, Жамал көчөсү, 1.<br>
                     <strong>🎓 Билим берүү тили:</strong> Кыргыз тили жана Орус тили.<br>
@@ -364,11 +350,10 @@
                 </div>
             </div>
 
-            <!-- CARD 2: SCHOOL STATS -->
+            <!-- CARD 2 -->
             <div class="card">
                 <h2 id="card2-title">📊 Мектептин негизги көрсөткүчтөрү</h2>
                 <p id="card2-desc">Мектепте сапаттуу билим берүү үчүн чоң педагогикалык жамаат жана заманбап окуу базасы түзүлгөн.</p>
-
                 <div class="stats-grid">
                     <div class="stat-item">
                         <div class="stat-num">1200+</div>
@@ -389,29 +374,29 @@
                 </div>
             </div>
 
-            <!-- CARD 3: ADMINISTRATION -->
+            <!-- CARD 3 -->
             <div class="card">
                 <h2 id="card3-title">🏛 Мектеп жетекчилиги</h2>
                 <ul id="card3-list">
-                    <li><strong>Мектеп директору:</strong> Сарытаева Д. Т.</li>
-                    <li><strong>Педагогикалык курам:</strong> 50дөн ашык жогорку квалификациялуу мугалимдер жана адистер.</li>
+                    <li id="dir-name"><strong>Мектеп директору:</strong> Сарытаева Д. Т.</li>
+                    <li id="ped-staff"><strong>Педагогикалык курам:</strong> 50дөн ашык жогорку квалификациялуу мугалимдер жана адистер.</li>
                 </ul>
             </div>
 
-            <!-- CARD 4: INFRASTRUCTURE -->
+            <!-- CARD 4 -->
             <div class="card">
                 <h2 id="card4-title">🏢 Инфраструктура жана шарттар</h2>
                 <p id="card4-desc">Мектеп окуучулардын билим алуусу, спорт менен машыгуусу жана чыгармачылыгы үчүн бардык керектүү жабдуулар менен камсыздалган:</p>
                 <ul id="card4-list">
-                    <li><strong>Информатика кабинети:</strong> Атайын компьютердик техника менен жабдылган IT-класс.</li>
-                    <li><strong>Заманбап жабдуулар:</strong> Окуу кабинеттеринде ПК, ноутбуктар жана интерактивдүү доскалар.</li>
-                    <li><strong>Тренинг залы:</strong> Окуучулардын жана мугалимдердин өнүгүүсү үчүн атайын тренингдик зал.</li>
-                    <li><strong>Спорттук комплекс:</strong> Чоң спорт залы жана дене тарбия үчүн шарттар.</li>
-                    <li><strong>Социалдык зоналар:</strong> Китепкана, Актовый зал жана мектеп ашканасы.</li>
+                    <li id="inf-1"><strong>Информатика кабинети:</strong> Атайын компьютердик техника менен жабдылган IT-класс.</li>
+                    <li id="inf-2"><strong>Заманбап жабдуулар:</strong> Окуу кабинеттеринде ПК, ноутбуктар жана интерактивдүү доскалар.</li>
+                    <li id="inf-3"><strong>Тренинг залы:</strong> Окуучулардын жана мугалимдердин өнүгүүсү үчүн атайын тренингдик зал.</li>
+                    <li id="inf-4"><strong>Спорттук комплекс:</strong> Чоң спорт залы жана дене тарбия үчүн шарттар.</li>
+                    <li id="inf-5"><strong>Социалдык зоналар:</strong> Китепкана, Актовый зал жана мектеп ашканасы.</li>
                 </ul>
             </div>
 
-            <!-- CARD 5: BELL SCHEDULE -->
+            <!-- CARD 5 -->
             <div class="card">
                 <h2 id="card5-title">⏱️ Коңгуроолордун расписаниеси</h2>
                 <table class="schedule-table">
@@ -423,27 +408,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>1-сабак</td><td>08:00 - 08:45</td><td>13:00 - 13:45</td></tr>
-                        <tr><td>2-сабак</td><td>08:50 - 09:35</td><td>13:50 - 14:35</td></tr>
-                        <tr><td>3-сабак</td><td>09:40 - 10:25</td><td>14:40 - 15:25</td></tr>
-                        <tr><td>4-сабак</td><td>10:35 - 11:20</td><td>15:35 - 16:20</td></tr>
-                        <tr><td>5-сабак</td><td>11:25 - 12:10</td><td>16:25 - 17:10</td></tr>
-                        <tr><td>6-сабак</td><td>12:15 - 13:00</td><td>17:15 - 18:00</td></tr>
+                        <tr><td id="l1">1-сабак</td><td>08:00 - 08:45</td><td>13:00 - 13:45</td></tr>
+                        <tr><td id="l2">2-сабак</td><td>08:50 - 09:35</td><td>13:50 - 14:35</td></tr>
+                        <tr><td id="l3">3-сабак</td><td>09:40 - 10:25</td><td>14:40 - 15:25</td></tr>
+                        <tr><td id="l4">4-сабак</td><td>10:35 - 11:20</td><td>15:35 - 16:20</td></tr>
+                        <tr><td id="l5">5-сабак</td><td>11:25 - 12:10</td><td>16:25 - 17:10</td></tr>
+                        <tr><td id="l6">6-сабак</td><td>12:15 - 13:00</td><td>17:15 - 18:00</td></tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- CARD 6: ACHIEVEMENTS -->
+            <!-- CARD 6 -->
             <div class="card">
                 <h2 id="card6-title">🏆 Биздин сыймыгыбыз жана жетишкендиктер</h2>
                 <ul id="card6-list">
-                    <li>Шаардык жана облустук олимпиадалардын байгелүү орундары.</li>
-                    <li>IT жана программалоо боюнча мектеп окуучуларынын долбоорлору.</li>
-                    <li>Спорттук мелдештерде жана маданий иш-чараларда алдыңкы орундар.</li>
+                    <li id="ach-1">Шаардык жана облустук олимпиадалардын байгелүү орундары.</li>
+                    <li id="ach-2">IT жана программалоо боюнча мектеп окуучуларынын долбоорлору.</li>
+                    <li id="ach-3">Спорттук мелдештерде жана маданий иш-чараларда алдыңкы орундар.</li>
                 </ul>
             </div>
 
-            <!-- CARD 7: FAQ ACCORDION -->
+            <!-- CARD 7 -->
             <div class="card">
                 <h2 id="card7-title">❓ Көп берилүүчү суроолор (FAQ)</h2>
                 <div class="faq-item">
@@ -469,7 +454,7 @@
                 </div>
             </div>
 
-            <!-- CARD 8: ONLINE RECEPTION FORM -->
+            <!-- CARD 8 -->
             <div class="card">
                 <h2 id="card8-title">📩 Онлайн-приёмная / Сунуш-пикир калтыруу</h2>
                 <form onsubmit="event.preventDefault(); alert('Билдирүүңүз жөнөтүлдү!');">
@@ -486,7 +471,7 @@
                 </form>
             </div>
 
-            <!-- CARD 9: GOOGLE MAPS LOCATION -->
+            <!-- CARD 9 -->
             <div class="card">
                 <h2 id="card9-title">📍 Мектептин жайгашкан жери (Карта)</h2>
                 <p id="card9-desc">Мектептин толук дарегин Google Картадан көрө аласыз:</p>
@@ -497,12 +482,12 @@
         </main>
 
         <footer>
-            <div class="author-tag">№6 Токтогул атындагы мектептин порталы</div>
+            <div class="author-tag" id="footer-text">№6 Токтогул атындагы мектептин порталы</div>
         </footer>
     </div>
 
     <script>
-        // FAQ Аккордеон
+        // Аккордеон FAQ
         document.querySelectorAll('.faq-question').forEach(item => {
             item.addEventListener('click', () => {
                 const parent = item.parentElement;
@@ -510,14 +495,171 @@
             });
         });
 
-        // Переключение языков (KY / RU)
+        // БАЗА ПЕРЕВОДОВ KY / RU
+        const translations = {
+            ky: {
+                badge: "📍 Кызыл-Кыя ш. | Баткен облусу",
+                title: "№6 Токтогул атындагы жалпы билим берүү мектеби",
+                subtitle: "Интерактивдүү расмий санариптик веб-порталы",
+                card1Title: "🏫 Мектеп жөнүндө маалымат",
+                card1Desc: "Кызыл-Кыя шаарындагы №6 Токтогул атындагы толук жалпы билим берүү мектеби окуучуларга заманбап билим берүү, санариптик технологияларды өздөштүрүү жана ар тараптуу өнүгүү үчүн бардык шарттарды түзөт.",
+                card1Box: "<strong>📌 Дареги:</strong> Кыргызстан, Баткен облусу, Кызыл-Кыя шаары, Жамал көчөсү, 1.<br><strong>🎓 Билим берүү тили:</strong> Кыргыз тили жана Орус тили.<br><strong>🕒 Окуу тартиби:</strong> 2 нөөмөт (смена).",
+                card2Title: "📊 Мектептин негизги көрсөткүчтөрү",
+                card2Desc: "Мектепте сапаттуу билим берүү үчүн чоң педагогикалык жамаат жана заманбап окуу базасы түзүлгөн.",
+                stStudents: "Окуучулар",
+                stTeachers: "Мугалимдер",
+                stRooms: "Окуу кабинети",
+                stShifts: "Окуу сменасы",
+                card3Title: "🏛 Мектеп жетекчилиги",
+                dirName: "<strong>Мектеп директору:</strong> Сарытаева Д. Т.",
+                pedStaff: "<strong>Педагогикалык курам:</strong> 50дөн ашык жогорку квалификациялуу мугалимдер жана адистер.",
+                card4Title: "🏢 Инфраструктура жана шарттар",
+                card4Desc: "Мектеп окуучулардын билим алуусу, спорт менен машыгуусу жана чыгармачылыгы үчүн бардык керектүү жабдуулар менен камсыздалган:",
+                inf1: "<strong>Информатика кабинети:</strong> Атайын компьютердик техника менен жабдылган IT-класс.",
+                inf2: "<strong>Заманбап жабдуулар:</strong> Окуу кабинеттеринде ПК, ноутбуктар жана интерактивдүү доскалар.",
+                inf3: "<strong>Тренинг залы:</strong> Окуучулардын жана мугалимдердин өнүгүүсү үчүн атайын тренингдик зал.",
+                inf4: "<strong>Спорттук комплекс:</strong> Чоң спорт залы жана дене тарбия үчүн шарттар.",
+                inf5: "<strong>Социалдык зоналар:</strong> Китепкана, Актовый зал жана мектеп ашканасы.",
+                card5Title: "⏱️ Коңгуроолордун расписаниеси",
+                thLesson: "Сабак",
+                thS1: "1-нөөмөт (Смена)",
+                thS2: "2-нөөмөт (Смена)                card5Title: "⏱️ Расписание звонков",
+                thLesson: "Урок",
+                thS1: "1-я смена",
+                thS2: "2-я смена",
+                card6Title: "🏆 Наша гордость и достижения",
+                ach1: "Призовые места на городских и областных олимпиадах.",
+                ach2: "Проекты учащихся в сфере IT и программирования.",
+                ach3: "Лидирующие места в спортивных и культурных мероприятиях.",
+                card7Title: "❓ Часто задаваемые вопросы (FAQ)",
+                q1: "1. Какие документы нужны для поступления?",
+                a1: "Требуется свидетельство о рождении, копия паспорта одного из родителей, 4 фото (3x4) и медицинская справка.",
+                q2: "2. Во сколько начинается вторая смена?",
+                a2: "Вторая смена начинается в 13:00.",
+                q3: "3. Какие кружки есть в школе?",
+                a3: "Информатика и программирование, спортивные секции (волейбол, баскетбол), языковые курсы.",
+                card8Title: "📩 Онлайн-приемная / Оставить отзыв",
+                fName: "Ваше имя",
+                fContact: "Телефон или Telegram",
+                fMsg: "Ваше предложение или вопрос...",
+                fBtn: "Отправить",
+                card9Title: "📍 Расположение школы (Карта)",
+                card9Desc: "Вы можете посмотреть точный адрес школы на Google Картах:",
+                footerText: "Портал школы №6 имени Токтогула"
+            },
+            ky: {
+                badge: "📍 Кызыл-Кыя ш. | Баткен облусу",
+                title: "№6 Токтогул атындагы жалпы билим берүү мектеби",
+                subtitle: "Интерактивдүү расмий санариптик веб-порталы",
+                card1Title: "🏫 Мектеп жөнүндө маалымат",
+                card1Desc: "Кызыл-Кыя шаарындагы №6 Токтогул атындагы толук жалпы билим берүү мектеби окуучуларга заманбап билим берүү, санариптик технологияларды өздөштүрүү жана ар тараптуу өнүгүү үчүн бардык шарттарды түзөт.",
+                card1Box: "<strong>📌 Дареги:</strong> Кыргызстан, Баткен облусу, Кызыл-Кыя шаары, Жамал көчөсү, 1.<br><strong>🎓 Билим берүү тили:</strong> Кыргыз тили жана Орус тили.<br><strong>🕒 Окуу тартиби:</strong> 2 нөөмөт (смена).",
+                card2Title: "📊 Мектептин негизги көрсөткүчтөрү",
+                card2Desc: "Мектепте сапаттуу билим берүү үчүн чоң педагогикалык жамаат жана заманбап окуу базасы түзүлгөн.",
+                stStudents: "Окуучулар",
+                stTeachers: "Мугалимдер",
+                stRooms: "Окуу кабинети",
+                stShifts: "Окуу сменасы",
+                card3Title: "🏛 Мектеп жетекчилиги",
+                dirName: "<strong>Мектеп директору:</strong> Сарытаева Д. Т.",
+                pedStaff: "<strong>Педагогикалык курам:</strong> 50дөн ашык жогорку квалификациялуу мугалимдер жана адистер.",
+                card4Title: "🏢 Инфраструктура жана шарттар",
+                card4Desc: "Мектеп окуучулардын билим алуусу, спорт менен машыгуусу жана чыгармачылыгы үчүн бардык керектүү жабдуулар менен камсыздалган:",
+                inf1: "<strong>Информатика кабинети:</strong> Атайын компьютердик техника менен жабдылган IT-класс.",
+                inf2: "<strong>Заманбап жабдуулар:</strong> Окуу кабинеттеринде ПК, ноутбуктар жана интерактивдүү доскалар.",
+                inf3: "<strong>Тренинг залы:</strong> Окуучулардын жана мугалимдердин өнүгүүсү үчүн атайын тренингдик зал.",
+                inf4: "<strong>Спорттук комплекс:</strong> Чоң спорт залы жана дене тарбия үчүн шарттар.",
+                inf5: "<strong>Социалдык зоналар:</strong> Китепкана, Актовый зал жана мектеп ашканасы.",
+                card5Title: "⏱️ Коңгуроолордун расписаниеси",
+                thLesson: "Сабак",
+                thS1: "1-нөөмөт (Смена)",
+                thS2: "2-нөөмөт (Смена)",
+                card6Title: "🏆 Биздин сыймыгыбыз жана жетишкендиктер",
+                ach1: "Шаардык жана облустук олимпиадалардын байгелүү орундары.",
+                ach2: "IT жана программалоо боюнча мектеп окуучуларынын долбоорлору.",
+                ach3: "Спорттук мелдештерде жана маданий иш-чараларда алдыңкы орундар.",
+                card7Title: "❓ Көп берилүүчү суроолор (FAQ)",
+                q1: "1. Мектепке кабыл алуу үчүн кандай документтер керек?",
+                a1: "Окуучунун туулгандыгы тууралуу күбөлүгү, ата-энесинин паспортунун көчүрмөсү, 3x4 сүрөт (4 даана) жана медициналык маалымкат керектелет.",
+                q2: "2. Экинчи смена саат канчада башталат?",
+                a2: "Экинчи нөөмөт (смена) саат 13:00дө башталат.",
+                q3: "3. Мектепте кандай ийримдер бар?",
+                a3: "Информатика жана программалоо, спорттук секциялар (волейбол, баскетбол), тил үйрөнүү курстары.",
+                card8Title: "📩 Онлайн-приёмная / Сунуш-пикир калтыруу",
+                fName: "Аты-жөнүңүз",
+                fContact: "Телефон же Telegram",
+                fMsg: "Сунушуңуз же сурооңуз...",
+                fBtn: "Жөнөтүү",
+                card9Title: "📍 Мектептин жайгашкан жери (Карта)",
+                card9Desc: "Мектептин толук дарегин Google Картадан көрө аласыз:",
+                footerText: "№6 Токтогул атындагы мектептин порталы"
+            }
+        };
+
         function setLanguage(lang) {
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            if(lang === 'ky') {
+            if (lang === 'ky') {
                 document.querySelectorAll('.lang-btn')[0].classList.add('active');
             } else {
                 document.querySelectorAll('.lang-btn')[1].classList.add('active');
             }
+
+            const data = translations[lang];
+
+            document.getElementById('txt-badge').innerText = data.badge;
+            document.getElementById('txt-title').innerText = data.title;
+            document.getElementById('txt-subtitle').innerText = data.subtitle;
+
+            document.getElementById('card1-title').innerText = data.card1Title;
+            document.getElementById('card1-desc').innerText = data.card1Desc;
+            document.getElementById('card1-box').innerHTML = data.card1Box;
+
+            document.getElementById('card2-title').innerText = data.card2Title;
+            document.getElementById('card2-desc').innerText = data.card2Desc;
+            document.getElementById('st-students').innerText = data.stStudents;
+            document.getElementById('st-teachers').innerText = data.stTeachers;
+            document.getElementById('st-rooms').innerText = data.stRooms;
+            document.getElementById('st-shifts').innerText = data.stShifts;
+
+            document.getElementById('card3-title').innerText = data.card3Title;
+            document.getElementById('dir-name').innerHTML = data.dirName;
+            document.getElementById('ped-staff').innerHTML = data.pedStaff;
+
+            document.getElementById('card4-title').innerText = data.card4Title;
+            document.getElementById('card4-desc').innerText = data.card4Desc;
+            document.getElementById('inf-1').innerHTML = data.inf1;
+            document.getElementById('inf-2').innerHTML = data.inf2;
+            document.getElementById('inf-3').innerHTML = data.inf3;
+            document.getElementById('inf-4').innerHTML = data.inf4;
+            document.getElementById('inf-5').innerHTML = data.inf5;
+
+            document.getElementById('card5-title').innerText = data.card5Title;
+            document.getElementById('th-lesson').innerText = data.thLesson;
+            document.getElementById('th-s1').innerText = data.thS1;
+            document.getElementById('th-s2').innerText = data.thS2;
+
+            document.getElementById('card6-title').innerText = data.card6Title;
+            document.getElementById('ach-1').innerText = data.ach1;
+            document.getElementById('ach-2').innerText = data.ach2;
+            document.getElementById('ach-3').innerText = data.ach3;
+
+            document.getElementById('card7-title').innerText = data.card7Title;
+            document.getElementById('q1').innerText = data.q1;
+            document.getElementById('a1').innerText = data.a1;
+            document.getElementById('q2').innerText = data.q2;
+            document.getElementById('a2').innerText = data.a2;
+            document.getElementById('q3').innerText = data.q3;
+            document.getElementById('a3').innerText = data.a3;
+
+            document.getElementById('card8-title').innerText = data.card8Title;
+            document.getElementById('f-name').placeholder = data.fName;
+            document.getElementById('f-contact').placeholder = data.fContact;
+            document.getElementById('f-msg').placeholder = data.fMsg;
+            document.getElementById('f-btn').innerText = data.fBtn;
+
+            document.getElementById('card9-title').innerText = data.card9Title;
+            document.getElementById('card9-desc').innerText = data.card9Desc;
+            document.getElementById('footer-text').innerText = data.footerText;
         }
     </script>
 </body>
