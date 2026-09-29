@@ -3,253 +3,253 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RED ALERT: TIC-TAC-TOE ☭ 🦅</title>
+  <title>CyberBio | Developer Profile</title>
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Courier New', Courier, monospace;
+      font-family: 'Consolas', 'Courier New', monospace;
     }
 
     body {
-      background-color: #1a1a1a;
-      color: #00ff00;
+      background: #0d0f12;
+      color: #00ffcc;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      background-image: radial-gradient(#333 1px, transparent 0);
-      background-size: 20px 20px;
+      overflow-x: hidden;
+      padding: 20px;
     }
 
+    /* Анимированный задний фон */
+    .bg-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
+      background-size: 30px 30px;
+      z-index: -1;
+      animation: moveBg 20s linear infinite;
+    }
+
+    @keyframes moveBg {
+      0% { background-position: 0 0; }
+      100% { background-position: 30px 60px; }
+    }
+
+    /* Главная карточка */
+    .bio-card {
+      background: rgba(18, 22, 28, 0.85);
+      border: 1px solid rgba(0, 255, 204, 0.3);
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 450px;
+      width: 100%;
+      box-shadow: 0 0 30px rgba(0, 255, 204, 0.15);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      position: relative;
+      animation: floatCard 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatCard {
+      from { transform: translateY(0px); }
+      to { transform: translateY(-8px); }
+    }
+
+    /* Аватарка с пульсирующим свечением */
+    .avatar-container {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 20px;
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #00ffcc;
+      box-shadow: 0 0 15px #00ffcc;
+    }
+
+    .status-dot {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      width: 15px;
+      height: 15px;
+      background: #00ffcc;
+      border-radius: 50%;
+      border: 2px solid #0d0f12;
+      box-shadow: 0 0 8px #00ffcc;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 204, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 255, 204, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 204, 0); }
+    }
+
+    /* Текст с эффектом печатной машинки */
     h1 {
-      font-size: 2.2rem;
-      margin-bottom: 10px;
-      color: #ff3333;
-      text-shadow: 0 0 10px #ff0000;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-
-    .status {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-      padding: 10px 20px;
-      border: 1px solid #00ff00;
-      background: #000;
-      box-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
-    }
-
-    .board {
-      display: grid;
-      grid-template-columns: repeat(3, 100px);
-      grid-template-rows: repeat(3, 100px);
-      gap: 8px;
-      background: #ff3333;
-      padding: 8px;
-      border: 2px solid #ff3333;
-      box-shadow: 0 0 20px rgba(255, 51, 51, 0.5);
-    }
-
-    .cell {
-      background: #0d0d0d;
-      border: 1px solid #333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      cursor: pointer;
-      user-select: none;
-      transition: all 0.2s;
-    }
-
-    .cell:hover {
-      background: #222;
-      border-color: #00ff00;
-    }
-
-    .cell.taken {
-      cursor: not-allowed;
-    }
-
-    .cell.winning {
-      background: #331111;
-      border-color: #ff3333;
-      box-shadow: inset 0 0 15px #ff0000;
-    }
-
-    .controls {
-      margin-top: 25px;
-      display: flex;
-      gap: 15px;
-    }
-
-    button {
-      padding: 10px 20px;
-      font-size: 1rem;
-      font-weight: bold;
-      border: 1px solid #00ff00;
-      background: #000;
-      color: #00ff00;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all 0.2s;
-    }
-
-    button:hover {
-      background: #00ff00;
-      color: #000;
-      box-shadow: 0 0 10px #00ff00;
-    }
-
-    .score-board {
-      margin-top: 20px;
-      display: flex;
-      gap: 30px;
-      font-size: 1.1rem;
-      border-top: 1px dashed #444;
-      padding-top: 15px;
-    }
-
-    .red-text { color: #ff3333; }
-    .usa-text { color: #3399ff; }
-  </style>
-</head>
-<body>
-
-  <h1>[ RED ALERT: WARGAMES ]</h1>
-  <div class="status" id="status">ПРИКАЗ: Ход Советов ☭</div>
-
-  <div class="board" id="board">
-    <div class="cell" data-index="0"></div>
-    <div class="cell" data-index="1"></div>
-    <div class="cell" data-index="2"></div>
-    <div class="cell" data-index="3"></div>
-    <div class="cell" data-Если хочется сделать проект в максимально «абсурдном», трешовом или историко-сатирическом стиле, но без выхода за рамки правил и законов, можно использовать известные **интернет-мемы, политическую сатиру и исторические стереотипы**. 
-
-
-```html
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <title>COLD WAR: TAC TOE 🛠️🎩</title>
-  <style>
-    body {
-      background: #1a1a1a;
+      font-size: 1.8rem;
       color: #fff;
-      font-family: 'Courier New', monospace;
+      margin-bottom: 5px;
+    }
+
+    .typing-text {
+      color: #00ffcc;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      min-height: 24px;
+      border-right: 2px solid #00ffcc;
+      display: inline-block;
+      white-space: nowrap;
+      animation: blink 0.75s step-end infinite;
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent }
+      50% { border-color: #00ffcc; }
+    }
+
+    /* Описание и скиллы */
+    .bio-desc {
+      color: #a0aec0;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 25px;
+    }
+
+    .tag {
+      background: rgba(0, 255, 204, 0.1);
+      border: 1px solid rgba(0, 255, 204, 0.3);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #00ffcc;
+    }
+
+    /* Неоновые ссылки */
+    .links {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      margin: 0;
+      gap: 12px;
     }
-    h1 { color: #e74c3c; text-transform: uppercase; letter-spacing: 2px; }
-    .status { font-size: 1.2rem; margin-bottom: 15px; color: #f1c40f; }
-    .board {
-      display: grid;
-      grid-template-columns: repeat(3, 100px);
-      gap: 8px;
-      background: #333;
-      padding: 10px;
-      border: 3px solid #e74c3c;
-    }
-    .cell {
-      width: 100px;
-      height: 100px;
-      background: #222;
+
+    .link-btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 3rem;
-      cursor: pointer;
-      border: 1px solid #444;
-    }
-    .cell:hover { background: #2a2a2a; }
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: #e74c3c;
-      color: white;
-      border: none;
+      padding: 12px 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(0, 255, 204, 0.3);
+      border-radius: 8px;
+      color: #fff;
+      text-decoration: none;
       font-weight: bold;
-      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
-    button:hover { background: #c0392b; }
+
+    .link-btn:hover {
+      background: #00ffcc;
+      color: #0d0f12;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
+      transform: scale(1.02);
+    }
   </style>
 </head>
 <body>
 
-  <h1>СССР vs США 🛠️🎩</h1>
-  <div class="status" id="status">Ход: Товарищ 🛠️</div>
+  <div class="bg-grid"></div>
 
-  <div class="board" id="board">
-    <div class="cell" data-idx="0"></div>
-    <div class="cell" data-idx="1"></div>
-    <div class="cell" data-idx="2"></div>
-    <div class="cell" data-idx="3"></div>
-    <div class="cell" data-idx="4"></div>
-    <div class="cell" data-idx="5"></div>
-    <div class="cell" data-idx="6"></div>
-    <div class="cell" data-idx="7"></div>
-    <div class="cell" data-idx="8"></div>
+  <div class="bio-card">
+    <div class="avatar-container">
+      <!-- Вставь сюда ссылку на свою аватарку -->
+      <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Mexo" alt="Avatar" class="avatar">
+      <div class="status-dot"></div>
+    </div>
+
+    <h1>Mexo</h1>
+    <div class="typing-text" id="typing"></div>
+
+    <p class="bio-desc">
+      Разрабатываю асинхронных Telegram-ботов, исследую веб-технологии и создаю полезные скрипты на Python.
+    </p>
+
+    <div class="tags">
+      <span class="tag">Python</span>
+      <span class="tag">aiogram 3</span>
+      <span class="tag">AsyncIO</span>
+      <span class="tag">SQLite</span>
+      <span class="tag">Web Dev</span>
+    </div>
+
+    <div class="links">
+      <a href="https://t.me/your_username" target="_blank" class="link-btn">💬 Telegram</a>
+      <a href="https://github.com/your_username" target="_blank" class="link-btn">💻 GitHub Profile</a>
+      <a href="#" class="link-btn">🚀 Посмотреть проекты</a>
+    </div>
   </div>
 
-  <button onclick="resetGame()">Перезапустить противостояние</button>
-
   <script>
-    const P1 = '🛠️'; // СССР
-    const P2 = '🎩'; // США
-    let board = Array(9).fill(null);
-    let turn = P1;
-    let active = true;
-
-    const wins = [
-      [0,1,2], [3,4,5], [6,7,8],
-      [0,3,6], [1,4,7], [2,5,8],
-      [0,4,8], [2,4,6]
+    // Эффект печати текста
+    const phrases = [
+      "Python Developer 🐍",
+      "Telegram Bots Creator 🤖",
+      "Async Code Enthusiast ⚡"
     ];
+    let partIndex = 0;
+    let textIndex = 0;
+    let isDeleting = false;
+    const typingElement = document.getElementById("typing");
 
-    document.querySelectorAll('.cell').forEach(cell => {
-      cell.addEventListener('click', (e) => {
-        const idx = e.target.dataset.idx;
-        if (board[idx] || !active) return;
+    function typeEffect() {
+      const currentPhrase = phrases[partIndex];
 
-        board[idx] = turn;
-        e.target.textContent = turn;
+      if (isDeleting) {
+        typingElement.textContent = currentPhrase.substring(0, textIndex - 1);
+        textIndex--;
+      } else {
+        typingElement.textContent = currentPhrase.substring(0, textIndex + 1);
+        textIndex++;
+      }
 
-        if (checkWin()) {
-          document.getElementById('status').textContent = `Победила сторона: ${turn}! 🎉`;
-          active = false;
-          return;
-        }
+      let speed = isDeleting ? 50 : 100;
 
-        if (board.every(c => c)) {
-          document.getElementById('status').textContent = 'Мирные переговоры (Ничья)! 🤝';
-          active = false;
-          return;
-        }
+      if (!isDeleting && textIndex === currentPhrase.length) {
+        speed = 2000; // Пауза перед удалением
+        isDeleting = true;
+      } else if (isDeleting && textIndex === 0) {
+        isDeleting = false;
+        partIndex = (partIndex + 1) % phrases.length;
+        speed = 500;
+      }
 
-        turn = turn === P1 ? P2 : P1;
-        document.getElementById('status').textContent = `Ход: ${turn === P1 ? 'Товарищ 🛠️' : 'Капиталист 🎩'}`;
-      });
-    });
-
-    function checkWin() {
-      return wins.some(w => w.every(idx => board[idx] === turn));
+      setTimeout(typeEffect, speed);
     }
 
-    function resetGame() {
-      board = Array(9).fill(null);
-      turn = P1;
-      active = true;
-      document.getElementById('status').textContent = 'Ход: Товарищ 🛠️';
-      document.querySelectorAll('.cell').forEach(c => c.textContent = '');
-    }
+    document.addEventListener("DOMContentLoaded", typeEffect);
   </script>
 </body>
 </html>
