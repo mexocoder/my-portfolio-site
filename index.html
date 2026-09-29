@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<<<<<<< HEAD
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MexoMC | Python & Telegram Bots</title>
@@ -28,3 +29,253 @@
     </div>
 </body>
 </html>
+=======
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MexoMC | Bio</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Consolas', 'Courier New', monospace;
+    }
+
+    body {
+      background: #0d0f12;
+      color: #00ffcc;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      padding: 20px;
+    }
+
+    /* Сетка на фоне */
+    .bg-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
+      background-size: 30px 30px;
+      z-index: -1;
+      animation: moveBg 20s linear infinite;
+    }
+
+    @keyframes moveBg {
+      0% { background-position: 0 0; }
+      100% { background-position: 30px 60px; }
+    }
+
+    .bio-card {
+      background: rgba(18, 22, 28, 0.85);
+      border: 1px solid rgba(0, 255, 204, 0.3);
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 450px;
+      width: 100%;
+      box-shadow: 0 0 30px rgba(0, 255, 204, 0.15);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      animation: floatCard 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatCard {
+      from { transform: translateY(0px); }
+      to { transform: translateY(-8px); }
+    }
+
+    .avatar-container {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 20px;
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #00ffcc;
+      box-shadow: 0 0 15px #00ffcc;
+    }
+
+    .status-dot {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      width: 15px;
+      height: 15px;
+      background: #00ffcc;
+      border-radius: 50%;
+      border: 2px solid #0d0f12;
+      box-shadow: 0 0 8px #00ffcc;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 204, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 255, 204, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 204, 0); }
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      color: #fff;
+      margin-bottom: 5px;
+    }
+
+    .typing-text {
+      color: #00ffcc;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      min-height: 24px;
+      border-right: 2px solid #00ffcc;
+      display: inline-block;
+      white-space: nowrap;
+      animation: blink 0.75s step-end infinite;
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent }
+      50% { border-color: #00ffcc; }
+    }
+
+    .bio-desc {
+      color: #a0aec0;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 25px;
+    }
+
+    .tag {
+      background: rgba(0, 255, 204, 0.1);
+      border: 1px solid rgba(0, 255, 204, 0.3);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #00ffcc;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .link-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(0, 255, 204, 0.3);
+      border-radius: 8px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .link-btn:hover {
+      background: #00ffcc;
+      color: #0d0f12;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
+      transform: scale(1.02);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+
+  <div class="bio-card">
+    <div class="avatar-container">
+      <!-- Положи картинку авы рядом под именем avatar.png -->
+      <img src="avatar.png" alt="MexoMC Avatar" class="avatar">
+      <div class="status-dot"></div>
+    </div>
+
+    <h1>MexoMC</h1>
+    <div class="typing-text" id="typing"></div>
+
+    <p class="bio-desc">
+      Создаю Telegram-ботов, пишу асинхронные скрипты и автоматизации на Python, занимаюсь веб-версткой и кастомной разработкой.
+    </p>
+
+    <div class="tags">
+      <span class="tag">Python</span>
+      <span class="tag">aiogram 3</span>
+      <span class="tag">AsyncIO</span>
+      <span class="tag">SQL / SQLite</span>
+      <span class="tag">HTML/CSS</span>
+      <span class="tag">Minecraft Dev</span>
+    </div>
+
+    <div class="links">
+      <a href="https://t.me/MexoMC" target="_blank" class="link-btn">💬 Telegram Аккаунт (@MexoMC)</a>
+      <a href="https://t.me/mexolauncher" target="_blank" class="link-btn">📢 Telegram Канал (@mexolauncher)</a>
+      <a href="https://github.com/mexocoder" target="_blank" class="link-btn">💻 GitHub (@mexocoder)</a>
+    </div>
+  </div>
+
+  <script>
+    // Печатающиеся фразы
+    const phrases = [
+      "Python Developer 🐍",
+      "Telegram Bot Creator 🤖",
+      "SQL & SQLite 💾",
+      "Web Sites (HTML/CSS) 🌐",
+      "FEMBOY 🌸"
+    ];
+
+    let partIndex = 0;
+    let textIndex = 0;
+    let isDeleting = false;
+    const typingElement = document.getElementById("typing");
+
+    function typeEffect() {
+      const currentPhrase = phrases[partIndex];
+
+      if (isDeleting) {
+        typingElement.textContent = currentPhrase.substring(0, textIndex - 1);
+        textIndex--;
+      } else {
+        typingElement.textContent = currentPhrase.substring(0, textIndex + 1);
+        textIndex++;
+      }
+
+      let speed = isDeleting ? 50 : 100;
+
+      if (!isDeleting && textIndex === currentPhrase.length) {
+        speed = 2000;
+        isDeleting = true;
+      } else if (isDeleting && textIndex === 0) {
+        isDeleting = false;
+        partIndex = (partIndex + 1) % phrases.length;
+        speed = 500;
+      }
+
+      setTimeout(typeEffect, speed);
+    }
+
+    document.addEventListener("DOMContentLoaded", typeEffect);
+  </script>
+</body>
+</html>
+>>>>>>> ab9b99649c0ffe5230097bd95eef16fa740d8aca
