@@ -3,66 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MEME TAC TOE 😼🔥</title>
+  <title>RED ALERT: TIC-TAC-TOE ☭ 🦅</title>
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Comic Sans MS', 'Arial', sans-serif;
+      font-family: 'Courier New', Courier, monospace;
     }
 
     body {
-      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+      background-color: #1a1a1a;
+      color: #00ff00;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: #333;
+      background-image: radial-gradient(#333 1px, transparent 0);
+      background-size: 20px 20px;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       margin-bottom: 10px;
-      text-shadow: 2px 2px #fff;
+      color: #ff3333;
+      text-shadow: 0 0 10px #ff0000;
+      text-transform: uppercase;
+      letter-spacing: 2px;
     }
 
     .status {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       margin-bottom: 20px;
-      font-weight: bold;
-      background: rgba(255, 255, 255, 0.6);
-      padding: 8px 16px;
-      border-radius: 20px;
+      padding: 10px 20px;
+      border: 1px solid #00ff00;
+      background: #000;
+      box-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
     }
 
     .board {
       display: grid;
       grid-template-columns: repeat(3, 100px);
       grid-template-rows: repeat(3, 100px);
-      gap: 10px;
-      background: #fff;
-      padding: 10px;
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      gap: 8px;
+      background: #ff3333;
+      padding: 8px;
+      border: 2px solid #ff3333;
+      box-shadow: 0 0 20px rgba(255, 51, 51, 0.5);
     }
 
     .cell {
-      background: #f0f0f0;
-      border-radius: 10px;
+      background: #0d0d0d;
+      border: 1px solid #333;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 3rem;
       cursor: pointer;
       user-select: none;
-      transition: transform 0.1s, background-color 0.2s;
+      transition: all 0.2s;
     }
 
     .cell:hover {
-      background: #e0e0e0;
-      transform: scale(1.03);
+      background: #222;
+      border-color: #00ff00;
     }
 
     .cell.taken {
@@ -70,13 +75,9 @@
     }
 
     .cell.winning {
-      background: #a8ff78;
-      animation: pulse 0.6s infinite alternate;
-    }
-
-    @keyframes pulse {
-      from { transform: scale(1); }
-      to { transform: scale(1.08); }
+      background: #331111;
+      border-color: #ff3333;
+      box-shadow: inset 0 0 15px #ff0000;
     }
 
     .controls {
@@ -86,182 +87,169 @@
     }
 
     button {
-      padding: 12px 24px;
+      padding: 10px 20px;
       font-size: 1rem;
       font-weight: bold;
-      border: none;
-      border-radius: 25px;
-      background: #6c5ce7;
-      color: white;
+      border: 1px solid #00ff00;
+      background: #000;
+      color: #00ff00;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(108, 92, 231, 0.3);
+      font-family: inherit;
       transition: all 0.2s;
     }
 
     button:hover {
-      background: #5b4bc4;
-      transform: translateY(-2px);
+      background: #00ff00;
+      color: #000;
+      box-shadow: 0 0 10px #00ff00;
     }
 
     .score-board {
-      margin-top: 15px;
+      margin-top: 20px;
       display: flex;
-      gap: 20px;
+      gap: 30px;
       font-size: 1.1rem;
+      border-top: 1px dashed #444;
+      padding-top: 15px;
     }
+
+    .red-text { color: #ff3333; }
+    .usa-text { color: #3399ff; }
   </style>
 </head>
 <body>
 
-  <h1>MEME TAC TOE 😼</h1>
-  <div class="status" id="status">Ход: Pop Cat 🐱</div>
+  <h1>[ RED ALERT: WARGAMES ]</h1>
+  <div class="status" id="status">ПРИКАЗ: Ход Советов ☭</div>
 
   <div class="board" id="board">
     <div class="cell" data-index="0"></div>
     <div class="cell" data-index="1"></div>
     <div class="cell" data-index="2"></div>
     <div class="cell" data-index="3"></div>
-    <div class="cell" data-index="4"></div>
-    <div class="cell" data-index="5"></div>
-    <div class="cell" data-index="6"></div>
-    <div class="cell" data-index="7"></div>
-    <div class="cell" data-index="8"></div>
+    <div class="cell" data-Если хочется сделать проект в максимально «абсурдном», трешовом или историко-сатирическом стиле, но без выхода за рамки правил и законов, можно использовать известные **интернет-мемы, политическую сатиру и исторические стереотипы**. 
+
+
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>COLD WAR: TAC TOE 🛠️🎩</title>
+  <style>
+    body {
+      background: #1a1a1a;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    h1 { color: #e74c3c; text-transform: uppercase; letter-spacing: 2px; }
+    .status { font-size: 1.2rem; margin-bottom: 15px; color: #f1c40f; }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      gap: 8px;
+      background: #333;
+      padding: 10px;
+      border: 3px solid #e74c3c;
+    }
+    .cell {
+      width: 100px;
+      height: 100px;
+      background: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      cursor: pointer;
+      border: 1px solid #444;
+    }
+    .cell:hover { background: #2a2a2a; }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover { background: #c0392b; }
+  </style>
+</head>
+<body>
+
+  <h1>СССР vs США 🛠️🎩</h1>
+  <div class="status" id="status">Ход: Товарищ 🛠️</div>
+
+  <div class="board" id="board">
+    <div class="cell" data-idx="0"></div>
+    <div class="cell" data-idx="1"></div>
+    <div class="cell" data-idx="2"></div>
+    <div class="cell" data-idx="3"></div>
+    <div class="cell" data-idx="4"></div>
+    <div class="cell" data-idx="5"></div>
+    <div class="cell" data-idx="6"></div>
+    <div class="cell" data-idx="7"></div>
+    <div class="cell" data-idx="8"></div>
   </div>
 
-  <div class="score-board">
-    <div>🐱 Pop Cat: <span id="scoreX">0</span></div>
-    <div>🐶 Doge: <span id="scoreO">0</span></div>
-  </div>
-
-  <div class="controls">
-    <button id="resetBtn">Перезапустить</button>
-    <button id="chaosBtn" style="background: #ff7675;">Режим ХАОС: Вкл</button>
-  </div>
+  <button onclick="resetGame()">Перезапустить противостояние</button>
 
   <script>
-    const P1 = '🐱'; // Можно заменить на <img> теги
-    const P2 = '🐶';
+    const P1 = '🛠️'; // СССР
+    const P2 = '🎩'; // США
+    let board = Array(9).fill(null);
+    let turn = P1;
+    let active = true;
 
-    let boardState = Array(9).fill(null);
-    let currentPlayer = P1;
-    let gameActive = true;
-    let moveCount = 0;
-    let chaosMode = true;
-
-    let score = { X: 0, O: 0 };
-
-    const statusDisplay = document.getElementById('status');
-    const cells = document.querySelectorAll('.cell');
-    const resetBtn = document.getElementById('resetBtn');
-    const chaosBtn = document.getElementById('chaosBtn');
-
-    const winningConditions = [
-      [0, 1, 2], [3, 4, 5], [6, 7, 8], // Строки
-      [0, 3, 6], [1, 4, 7], [2, 5, 8], // Столбцы
-      [0, 4, 8], [2, 4, 6]             // Диагонали
+    const wins = [
+      [0,1,2], [3,4,5], [6,7,8],
+      [0,3,6], [1,4,7], [2,5,8],
+      [0,4,8], [2,4,6]
     ];
 
-    function handleCellClick(e) {
-      const clickedCell = e.target;
-      const index = parseInt(clickedCell.getAttribute('data-index'));
+    document.querySelectorAll('.cell').forEach(cell => {
+      cell.addEventListener('click', (e) => {
+        const idx = e.target.dataset.idx;
+        if (board[idx] || !active) return;
 
-      if (boardState[index] !== null || !gameActive) return;
+        board[idx] = turn;
+        e.target.textContent = turn;
 
-      makeMove(index, currentPlayer);
+        if (checkWin()) {
+          document.getElementById('status').textContent = `Победила сторона: ${turn}! 🎉`;
+          active = false;
+          return;
+        }
 
-      if (checkWin()) {
-        statusDisplay.textContent = `Победил ${currentPlayer}! 🎉`;
-        gameActive = false;
-        if (currentPlayer === P1) score.X++; else score.O++;
-        updateScore();
-        return;
-      }
+        if (board.every(c => c)) {
+          document.getElementById('status').textContent = 'Мирные переговоры (Ничья)! 🤝';
+          active = false;
+          return;
+        }
 
-      if (boardState.every(cell => cell !== null)) {
-        statusDisplay.textContent = 'Ничья! 🤝';
-        gameActive = false;
-        return;
-      }
-
-      // Переход хода
-      currentPlayer = currentPlayer === P1 ? P2 : P1;
-      moveCount++;
-
-      // РЕЖИМ ХАОСА: Каждый 4-й ход метеорит уничтожает случайную занятую клетку!
-      if (chaosMode && moveCount > 0 && moveCount % 4 === 0) {
-        triggerChaosEvent();
-      } else {
-        statusDisplay.textContent = `Ход: ${currentPlayer}`;
-      }
-    }
-
-    function makeMove(index, player) {
-      boardState[index] = player;
-      cells[index].textContent = player;
-      cells[index].classList.add('taken');
-    }
-
-    function triggerChaosEvent() {
-      const occupiedIndices = boardState
-        .map((val, idx) => val !== null ? idx : null)
-        .filter(val => val !== null);
-
-      if (occupiedIndices.length === 0) return;
-
-      const randomIndex = occupiedIndices[Math.floor(Math.random() * occupiedIndices.length)];
-      
-      statusDisplay.textContent = `💥 МЕТЕОРИТ уничтожил клетку ${randomIndex + 1}!`;
-      
-      setTimeout(() => {
-        boardState[randomIndex] = null;
-        cells[randomIndex].textContent = '💥';
-        
-        setTimeout(() => {
-          cells[randomIndex].textContent = '';
-          cells[randomIndex].classList.remove('taken');
-          statusDisplay.textContent = `Ход: ${currentPlayer}`;
-        }, 800);
-      }, 300);
-    }
+        turn = turn === P1 ? P2 : P1;
+        document.getElementById('status').textContent = `Ход: ${turn === P1 ? 'Товарищ 🛠️' : 'Капиталист 🎩'}`;
+      });
+    });
 
     function checkWin() {
-      for (let condition of winningConditions) {
-        const [a, b, c] = condition;
-        if (boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
-          cells[a].classList.add('winning');
-          cells[b].classList.add('winning');
-          cells[c].classList.add('winning');
-          return true;
-        }
-      }
-      return false;
-    }
-
-    function updateScore() {
-      document.getElementById('scoreX').textContent = score.X;
-      document.getElementById('scoreO').textContent = score.O;
+      return wins.some(w => w.every(idx => board[idx] === turn));
     }
 
     function resetGame() {
-      boardState = Array(9).fill(null);
-      currentPlayer = P1;
-      gameActive = true;
-      moveCount = 0;
-      statusDisplay.textContent = `Ход: ${currentPlayer}`;
-      cells.forEach(cell => {
-        cell.textContent = '';
-        cell.classList.remove('taken', 'winning');
-      });
+      board = Array(9).fill(null);
+      turn = P1;
+      active = true;
+      document.getElementById('status').textContent = 'Ход: Товарищ 🛠️';
+      document.querySelectorAll('.cell').forEach(c => c.textContent = '');
     }
-
-    chaosBtn.addEventListener('click', () => {
-      chaosMode = !chaosMode;
-      chaosBtn.textContent = `Режим ХАОС: ${chaosMode ? 'Вкл' : 'Выкл'}`;
-      chaosBtn.style.background = chaosMode ? '#ff7675' : '#b2bec3';
-    });
-
-    cells.forEach(cell => cell.addEventListener('click', handleCellClick));
-    resetBtn.addEventListener('click', resetGame);
   </script>
 </body>
 </html>
