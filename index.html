@@ -1,716 +1,267 @@
 <!DOCTYPE html>
-<html lang="ky">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>№6 Токтогул атындагы мектеп | Cyber Pixel Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #0d0f18;
-            --card-bg: rgba(22, 26, 42, 0.82);
-            --border-pixel: #ffb7c5;
-            --text-main: #e2e8f0;
-            --text-dim: #94a3b8;
-            --accent-pink: #ff758f;
-            --accent-purple: #a855f7;
-            --glow-pink: rgba(255, 117, 143, 0.35);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEME TAC TOE 😼🔥</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', 'Arial', sans-serif;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    body {
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+    }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
-            position: relative;
-        }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px #fff;
+    }
 
-        /* Canvas Background for Pixel Sakura */
-        #sakura-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1;
-            pointer-events: none;
-        }
+    .status {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      font-weight: bold;
+      background: rgba(255, 255, 255, 0.6);
+      padding: 8px 16px;
+      border-radius: 20px;
+    }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-        }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 10px;
+      background: #fff;
+      padding: 10px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
 
-        .nav-logo {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.85rem;
-            color: var(--accent-pink);
-            text-shadow: 0 0 10px var(--glow-pink);
-        }
+    .cell {
+      background: #f0f0f0;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.1s, background-color 0.2s;
+    }
 
-        .lang-switch {
-            display: flex;
-            background: rgba(15, 23, 42, 0.9);
-            border: 2px solid var(--accent-pink);
-            box-shadow: 3px 3px 0px var(--accent-purple);
-        }
+    .cell:hover {
+      background: #e0e0e0;
+      transform: scale(1.03);
+    }
 
-        .lang-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-dim);
-            padding: 6px 14px;
-            cursor: pointer;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.65rem;
-            transition: all 0.2s ease;
-        }
+    .cell.taken {
+      cursor: not-allowed;
+    }
 
-        .lang-btn.active {
-            background: var(--accent-pink);
-            color: #000;
-        }
+    .cell.winning {
+      background: #a8ff78;
+      animation: pulse 0.6s infinite alternate;
+    }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px 20px 60px 20px;
-            position: relative;
-            z-index: 10;
-        }
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.08); }
+    }
 
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+    .controls {
+      margin-top: 25px;
+      display: flex;
+      gap: 15px;
+    }
 
-        .badge {
-            display: inline-block;
-            padding: 8px 16px;
-            border: 2px solid var(--accent-pink);
-            background: rgba(255, 117, 143, 0.1);
-            color: var(--accent-pink);
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 18px;
-            box-shadow: 4px 4px 0px var(--accent-purple);
-        }
+    button {
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 25px;
+      background: #6c5ce7;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(108, 92, 231, 0.3);
+      transition: all 0.2s;
+    }
 
-        h1 {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.25rem;
-            line-height: 1.7;
-            color: #ffffff;
-            text-shadow: 3px 3px 0px var(--accent-purple);
-            margin-bottom: 15px;
-        }
+    button:hover {
+      background: #5b4bc4;
+      transform: translateY(-2px);
+    }
 
-        .subtitle {
-            color: var(--text-dim);
-            font-size: 1rem;
-        }
-
-        /* PIXEL VIBE CARDS */
-        .card {
-            background: var(--card-bg);
-            border: 2px solid rgba(255, 183, 197, 0.4);
-            border-radius: 4px;
-            padding: 25px;
-            margin-bottom: 25px;
-            backdrop-filter: blur(8px);
-            box-shadow: 6px 6px 0px rgba(168, 85, 247, 0.3);
-            transition: transform 0.2s ease, border-color 0.2s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent-pink);
-            box-shadow: 6px 6px 15px var(--glow-pink);
-        }
-
-        .card h2 {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.9rem;
-            color: var(--accent-pink);
-            margin-bottom: 18px;
-            border-bottom: 2px dashed rgba(255, 255, 255, 0.15);
-            padding-bottom: 10px;
-            text-shadow: 1px 1px 0px #000;
-        }
-
-        .card p, .card li {
-            color: var(--text-main);
-            font-size: 0.98rem;
-            line-height: 1.6;
-        }
-
-        .card ul {
-            list-style: none;
-        }
-
-        .card li {
-            margin-bottom: 10px;
-            padding-left: 22px;
-            position: relative;
-        }
-
-        .card li::before {
-            content: "🌸";
-            position: absolute;
-            left: 0;
-            font-size: 0.8rem;
-        }
-
-        .highlight-box {
-            background: rgba(13, 15, 24, 0.85);
-            border-left: 4px solid var(--accent-pink);
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 0 4px 4px 0;
-            color: var(--text-main);
-            line-height: 1.7;
-        }
-
-        /* STATS GRID */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .stat-item {
-            background: rgba(13, 15, 24, 0.9);
-            border: 2px solid var(--accent-purple);
-            padding: 18px 10px;
-            text-align: center;
-            box-shadow: 4px 4px 0px rgba(255, 117, 143, 0.2);
-        }
-
-        .stat-num {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.2rem;
-            color: var(--accent-pink);
-            margin-bottom: 8px;
-        }
-
-        .stat-desc {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-        }
-
-        /* SCHEDULE TABLE */
-        .schedule-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        .schedule-table th, .schedule-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
-        }
-
-        .schedule-table th {
-            color: var(--accent-pink);
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.65rem;
-        }
-
-        /* FAQ */
-        .faq-item {
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
-            padding: 15px 0;
-        }
-
-        .faq-question {
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            color: var(--text-main);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            color: var(--text-dim);
-            font-size: 0.9rem;
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 200px;
-            margin-top: 10px;
-        }
-
-        /* FORM */
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-input, .form-textarea {
-            width: 100%;
-            padding: 12px;
-            background: rgba(13, 15, 24, 0.9);
-            border: 2px solid rgba(255, 183, 197, 0.3);
-            color: #fff;
-            font-size: 0.9rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .form-input:focus, .form-textarea:focus {
-            border-color: var(--accent-pink);
-            box-shadow: 0 0 8px var(--glow-pink);
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 14px;
-            background: var(--accent-pink);
-            border: none;
-            color: #000;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.75rem;
-            cursor: pointer;
-            box-shadow: 4px 4px 0px var(--accent-purple);
-            transition: all 0.2s;
-        }
-
-        .btn-submit:hover {
-            background: #ff8fa3;
-            transform: translateY(-2px);
-        }
-
-        .map-container {
-            width: 100%;
-            height: 280px;
-            border: 2px solid var(--accent-pink);
-            margin-top: 15px;
-            filter: invert(90%) hue-rotate(180deg) contrast(120%);
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            font-family: 'Press Start 2P', cursive;
-        }
-    </style>
+    .score-board {
+      margin-top: 15px;
+      display: flex;
+      gap: 20px;
+      font-size: 1.1rem;
+    }
+  </style>
 </head>
 <body>
 
-    <canvas id="sakura-canvas"></canvas>
+  <h1>MEME TAC TOE 😼</h1>
+  <div class="status" id="status">Ход: Pop Cat 🐱</div>
 
-    <nav>
-        <div class="nav-logo">№6 PIXEL HUB</div>
-        <div class="lang-switch">
-            <button class="lang-btn active" onclick="setLanguage('ky')">KY</button>
-            <button class="lang-btn" onclick="setLanguage('ru')">RU</button>
-        </div>
-    </nav>
+  <div class="board" id="board">
+    <div class="cell" data-index="0"></div>
+    <div class="cell" data-index="1"></div>
+    <div class="cell" data-index="2"></div>
+    <div class="cell" data-index="3"></div>
+    <div class="cell" data-index="4"></div>
+    <div class="cell" data-index="5"></div>
+    <div class="cell" data-index="6"></div>
+    <div class="cell" data-index="7"></div>
+    <div class="cell" data-index="8"></div>
+  </div>
 
-    <div class="container">
-        <header>
-            <div class="badge" id="txt-badge">📍 Кызыл-Кыя ш. | Баткен облусу</div>
-            <h1 id="txt-title">№6 Токтогул атындагы жалпы билим берүү мектеби</h1>
-            <p class="subtitle" id="txt-subtitle">Интерактивдүү расмий санариптик веб-порталы</p>
-        </header>
+  <div class="score-board">
+    <div>🐱 Pop Cat: <span id="scoreX">0</span></div>
+    <div>🐶 Doge: <span id="scoreO">0</span></div>
+  </div>
 
-        <main>
-            <!-- CARD 1 -->
-            <div class="card">
-                <h2 id="card1-title">🏫 Мектеп жөнүндө маалымат</h2>
-                <p id="card1-desc">Кызыл-Кыя шаарындагы №6 Токтогул атындагы толук жалпы билим берүү мектеби окуучуларга заманбап билим берүү, санариптик технологияларды өздөштүрүү жана ар тараптуу өнүгүү үчүн бардык шарттарды түзөт.</p>
-                <div class="highlight-box" id="card1-box">
-                    📌 <strong>Дареги:</strong> Кыргызстан, Баткен облусу, Кызыл-Кыя шаары, Жамал көчөсү, 1.<br>
-                    🎓 <strong>Билим берүү тили:</strong> Кыргыз тили жана Орус тили.<br>
-                    🕒 <strong>Окуу тартиби:</strong> 2 нөөмөт (смена).
-                </div>
-            </div>
+  <div class="controls">
+    <button id="resetBtn">Перезапустить</button>
+    <button id="chaosBtn" style="background: #ff7675;">Режим ХАОС: Вкл</button>
+  </div>
 
-            <!-- CARD 2 -->
-            <div class="card">
-                <h2 id="card2-title">📊 Мектептин негизги көрсөткүчтөрү</h2>
-                <p id="card2-desc">Мектепте сапаттуу билим берүү үчүн чоң педагогикалык жамаат жана заманбап окуу базасы түзүлгөн.</p>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-num">1200+</div>
-                        <div class="stat-desc" id="st-students">Окуучулар</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-num">50+</div>
-                        <div class="stat-desc" id="st-teachers">Мугалимдер</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-num">45+</div>
-                        <div class="stat-desc" id="st-rooms">Окуу кабинети</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-num">2</div>
-                        <div class="stat-desc" id="st-shifts">Окуу сменасы</div>
-                    </div>
-                </div>
-            </div>
+  <script>
+    const P1 = '🐱'; // Можно заменить на <img> теги
+    const P2 = '🐶';
 
-            <!-- CARD 3 -->
-            <div class="card">
-                <h2 id="card3-title">🏛 Мектеп жетекчилиги</h2>
-                <ul>
-                    <li id="dir-name"><strong>Мектеп директору:</strong> Сарытаева Д. Т.</li>
-                    <li id="ped-staff"><strong>Педагогикалык курам:</strong> 50дөн ашык жогорку квалификациялуу мугалимдер.</li>
-                </ul>
-            </div>
+    let boardState = Array(9).fill(null);
+    let currentPlayer = P1;
+    let gameActive = true;
+    let moveCount = 0;
+    let chaosMode = true;
 
-            <!-- CARD 4 -->
-            <div class="card">
-                <h2 id="card4-title">🏢 Инфраструктура жана шарттар</h2>
-                <p id="card4-desc">Мектеп окуучулардын билим алуусу жана өнүгүүсү үчүн бардык керектүү жабдуулар менен камсыздалган:</p>
-                <ul>
-                    <li id="inf-1"><strong>Информатика кабинети:</strong> Атайын компьютердик IT-класс.</li>
-                    <li id="inf-2"><strong>Заманбап жабдуулар:</strong> ПК, ноутбуктар жана интерактивдүү доскалар.</li>
-                    <li id="inf-3"><strong>Тренинг залы:</strong> Окуучулардын өнүгүүсү үчүн атайын зал.</li>
-                    <li id="inf-4"><strong>Спорттук комплекс:</strong> Чоң спорт залы.</li>
-                    <li id="inf-5"><strong>Социалдык зоналар:</strong> Китепкана, Актовый зал жана ашкана.</li>
-                </ul>
-            </div>
+    let score = { X: 0, O: 0 };
 
-            <!-- CARD 5 -->
-            <div class="card">
-                <h2 id="card5-title">⏱️ Коңгуроолордун расписаниеси</h2>
-                <table class="schedule-table">
-                    <thead>
-                        <tr>
-                            <th id="th-lesson">Сабак</th>
-                            <th id="th-s1">1-Смена</th>
-                            <th id="th-s2">2-Смена</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>1-сабак</td><td>08:00 - 08:45</td><td>13:00 - 13:45</td></tr>
-                        <tr><td>2-сабак</td><td>08:50 - 09:35</td><td>13:50 - 14:35</td></tr>
-                        <tr><td>3-сабак</td><td>09:40 - 10:25</td><td>14:40 - 15:25</td></tr>
-                        <tr><td>4-сабак</td><td>10:35 - 11:20</td><td>15:35 - 16:20</td></tr>
-                        <tr><td>5-сабак</td><td>11:25 - 12:10</td><td>16:25 - 17:10</td></tr>
-                        <tr><td>6-сабак</td><td>12:15 - 13:00</td><td>17:15 - 18:00</td></tr>
-                    </tbody>
-                </table>
-            </div>
+    const statusDisplay = document.getElementById('status');
+    const cells = document.querySelectorAll('.cell');
+    const resetBtn = document.getElementById('resetBtn');
+    const chaosBtn = document.getElementById('chaosBtn');
 
-            <!-- CARD 6 -->
-            <div class="card">
-                <h2 id="card6-title">🏆 Биздин сыймыгыбыз жана жетишкендиктер</h2>
-                <ul>
-                    <li id="ach-1">Шаардык жана облустук олимпиадалардын байгелүү орундары.</li>
-                    <li id="ach-2">IT жана программалоо боюнча окуучулардын долбоорлору.</li>
-                    <li id="ach-3">Спорттук мелдештерде алдыңкы орундар.</li>
-                </ul>
-            </div>
+    const winningConditions = [
+      [0, 1, 2], [3, 4, 5], [6, 7, 8], // Строки
+      [0, 3, 6], [1, 4, 7], [2, 5, 8], // Столбцы
+      [0, 4, 8], [2, 4, 6]             // Диагонали
+    ];
 
-            <!-- CARD 7 -->
-            <div class="card">
-                <h2 id="card7-title">❓ Көп берилүүчү суроолор (FAQ)</h2>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span id="q1">1. Кандай документтер керек?</span>
-                        <span>▼</span>
-                    </div>
-                    <div class="faq-answer" id="a1">Туулгандыгы тууралуу күбөлүк, ата-энесинин паспорту, 3x4 сүрөт (4 даана) жана мед. справка.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span id="q2">2. 2-смена саат канчада башталат?</span>
-                        <span>▼</span>
-                    </div>
-                    <div class="faq-answer" id="a2">Экинчи смена саат 13:00дө башталат.</div>
-                </div>
-            </div>
+    function handleCellClick(e) {
+      const clickedCell = e.target;
+      const index = parseInt(clickedCell.getAttribute('data-index'));
 
-            <!-- CARD 8 -->
-            <div class="card">
-                <h2 id="card8-title">📩 Написать 1488</h2>
-                <form onsubmit="event.preventDefault(); alert('Билдирүү жөнөтүлдү!');">
-                    <div class="form-group">
-                        <input type="text" class="form-input" id="f-name" placeholder="Аты-жөнүңүз" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-input" id="f-contact" placeholder="Телефон же Telegram" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-textarea" rows="3" id="f-msg" placeholder="Сунушуңуз..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit" id="f-btn">ЖӨНӨТҮҮ</button>
-                </form>
-            </div>
+      if (boardState[index] !== null || !gameActive) return;
 
-            <!-- CARD 9 -->
-            <div class="card">
-                <h2 id="card9-title">📍 Карта</h2>
-                <p id="card9-desc">Мектептин дареги Google Картада:</p>
-                <div class="map-container">
-                    <iframe src="https://maps.google.com/maps?q=Kyzyl-Kiya&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
-                </div>
-            </div>
-        </main>
+      makeMove(index, currentPlayer);
 
-        <footer>
-            <div id="footer-text">[ №6 Токтогул атындагы мектеп ]</div>
-        </footer>
-    </div>
+      if (checkWin()) {
+        statusDisplay.textContent = `Победил ${currentPlayer}! 🎉`;
+        gameActive = false;
+        if (currentPlayer === P1) score.X++; else score.O++;
+        updateScore();
+        return;
+      }
 
-    <script>
-        /* FAQ ACCORDION */
-        document.querySelectorAll('.faq-question').forEach(item => {
-            item.addEventListener('click', () => {
-                item.parentElement.classList.toggle('active');
-            });
-        });
+      if (boardState.every(cell => cell !== null)) {
+        statusDisplay.textContent = 'Ничья! 🤝';
+        gameActive = false;
+        return;
+      }
 
-        /* ENHANCED PIXEL SAKURA ANIMATION */
-        const canvas = document.getElementById('sakura-canvas');
-        const ctx = canvas.getContext('2d');
+      // Переход хода
+      currentPlayer = currentPlayer === P1 ? P2 : P1;
+      moveCount++;
 
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
-
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        });
-
-        class PixelSakura {
-            constructor() {
-                this.reset();
-            }
-
-            reset() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * -height;
-                this.size = Math.floor(Math.random() * 4) + 4; // Distinct Pixel Size
-                this.speedY = Math.random() * 1.2 + 0.6;
-                this.speedX = Math.random() * 0.8 - 0.4;
-                this.swing = Math.random() * 0.05;
-                this.swingAngle = Math.random() * Math.PI * 2;
-                this.opacity = Math.random() * 0.7 + 0.3;
-                
-                // Sakura Pink & Lavender Pixel Color Palette
-                const colors = ['#ff758f', '#ffb7c5', '#ff4d6d', '#c084fc', '#e879f9'];
-                this.color = colors[Math.floor(Math.random() * colors.length)];
-            }
-
-            update() {
-                this.swingAngle += this.swing;
-                this.x += Math.sin(this.swingAngle) * 0.5 + this.speedX;
-                this.y += this.speedY;
-
-                if (this.y > height) {
-                    this.reset();
-                }
-            }
-
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.globalAlpha = this.opacity;
-                // Draw Pixel Petal Shape
-                ctx.fillRect(Math.floor(this.x), Math.floor(this.y), this.size, this.size);
-                ctx.fillRect(Math.floor(this.x) + 2, Math.floor(this.y) + 2, this.size - 2, this.size - 2);
-                ctx.globalAlpha = 1.0;
-            }
-        }
-
-        const petals = Array.from({ length: 80 }, () => new PixelSakura());
-
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            petals.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        /* TRANSLATIONS DATA */
-        const translations = {
-            ky: {
-                badge: "📍 Кызыл-Кыя ш. | Баткен облусу",
-                title: "№6 Токтогул атындагы жалпы билим берүү мектеби",
-                subtitle: "Интерактивдүү расмий санариптик веб-порталы",
-                card1Title: "🏫 Мектеп жөнүндө маалымат",
-                card1Desc: "Кызыл-Кыя шаарындагы №6 Токтогул атындагы толук жалпы билим берүү мектеби окуучуларга заманбап билим берүү, санариптик технологияларды өздөштүрүү жана ар тараптуу өнүгүү үчүн бардык шарттарды түзөт.",
-                card1Box: "📌 <strong>Дареги:</strong> Кыргызстан, Баткен облусу, Кызыл-Кыя шаары, Жамал көчөсү, 1.<br>🎓 <strong>Билим берүү тили:</strong> Кыргыз тили жана Орус тили.<br>🕒 <strong>Окуу тартиби:</strong> 2 нөөмөт (смена).",
-                card2Title: "📊 Мектептин негизги көрсөткүчтөрү",
-            card2Desc: "Мектепте сапаттуу билим берүү үчүн чоң педагогикалык жамаат жана заманбап окуу базасы түзүлгөн.",
-            stStudents: "Окуучулар",
-            stTeachers: "Мугалимдер",
-            stRooms: "Окуу кабинети",
-            stShifts: "Окуу сменасы",
-            card3Title: "🏛 Мектеп жетекчилиги",
-            dirName: "<strong>Мектеп директору:</strong> Сарытаева Д. Т.",
-            pedStaff: "<strong>Педагогикалык курам:</strong> 50дөн ашык жогорку квалификациялуу мугалимдер.",
-            card4Title: "🏢 Инфраструктура жана шарттар",
-            card4Desc: "Мектеп окуучулардын билим алуусу жана өнүгүүсү үчүн бардык керектүү жабдуулар менен камсыздалган:",
-            inf1: "<strong>Информатика кабинети:</strong> Атайын компьютердик IT-класс.",
-            inf2: "<strong>Заманбап жабдуулар:</strong> ПК, ноутбуктар жана интерактивдүү доскалар.",
-            inf3: "<strong>Тренинг залы:</strong> Окуучулардын өнүгүүсү үчүн атайын зал.",
-            inf4: "<strong>Спорттук комплекс:</strong> Чоң спорт залы.",
-            inf5: "<strong>Социалдык зоналар:</strong> Китепкана, Актовый зал жана ашкана.",
-            card5Title: "⏱️ Коңгуроолордун расписаниеси",
-            thLesson: "Сабак",
-            thS1: "1-Смена",
-            thS2: "2-Смена",
-            card6Title: "🏆 Биздин сыймыгыбыз жана жетишкендиктер",
-            ach1: "Шаардык жана облустук олимпиадалардын байгелүү орундары.",
-            ach2: "IT жана программалоо боюнча окуучулардын долбоорлору.",
-            ach3: "Спорттук мелдештерде алдыңкы орундар.",
-            card7Title: "❓ Көп берилүүчү суроолор (FAQ)",
-            q1: "1. Кандай документтер керек?",
-            a1: "Туулгандыгы тууралуу күбөлүк, ата-энесинин паспорту, 3x4 сүрөт (4 даана) жана мед. справка.",
-            q2: "2. 2-смена саат канчада башталат?",
-            a2: "Экинчи смена саат 13:00дө башталат.",
-            card8Title: "📩 Онлайн-приёмная",
-            fName: "Аты-жөнүңүз",
-            fContact: "Телефон же Telegram",
-            fMsg: "Сунушуңуз...",
-            fBtn: "ЖӨНӨТҮҮ",
-            card9Title: "📍 Карта",
-            card9Desc: "Мектептин дареги Google Картада:",
-            footerText: "[ №6 Токтогул атындагы мектеп ]"
-        },
-        ru: {
-            badge: "📍 г. Кызыл-Кия | Баткенская область",
-            title: "Средняя общеобразовательная школа №6 им. Токтогула",
-            subtitle: "Интерактивный официальный цифровой веб-портал",
-            card1Title: "🏫 Информация о школе",
-            card1Desc: "Средняя общеобразовательная школа №6 им. Токтогула в г. Кызыл-Кия предоставляет ученикам все условия для современного образования и цифрового развития.",
-            card1Box: "📌 <strong>Адрес:</strong> Кыргызстан, Баткенская область, г. Кызыл-Кия, ул. Жамал, 1.<br>🎓 <strong>Язык обучения:</strong> Кыргызский и Русский.<br>🕒 <strong>Режим обучения:</strong> 2 смены.",
-            card2Title: "📊 Основные показатели",
-            card2Desc: "Сформирован большой педагогический коллектив и современная учебная база.",
-            stStudents: "Учеников",
-            stTeachers: "Учителей",
-            stRooms: "Кабинетов",
-            stShifts: "Смены",
-            card3Title: "🏛 Руководство школы",
-            dirName: "<strong>Директор школы:</strong> Сарытаева Д. Т.",
-            pedStaff: "<strong>Педагогический состав:</strong> Более 50 квалифицированных учителей.",
-            card4Title: "🏢 Инфраструктура",
-            card4Desc: "Школа оснащена всем необходимым оборудованием:",
-            inf1: "<strong>Кабинет информатики:</strong> IT-класс с ПК.",
-            inf2: "<strong>Оборудование:</strong> ПК, ноутбуки и интерактивные доски.",
-            inf3: "<strong>Тренинговый зал:</strong> Специальный зал для развития.",
-            inf4: "<strong>Спортивный комплекс:</strong> Большой спортзал.",
-            inf5: "<strong>Социальные зоны:</strong> Библиотека, актовый зал и столовая.",
-            card5Title: "⏱️ Расписание звонков",
-            thLesson: "Урок",
-            thS1: "1-я Смена",
-            thS2: "2-я Смена",
-            card6Title: "🏆 Достижения",
-            ach1: "Призовые места на олимпиадах.",
-            ach2: "Проекты учеников в сфере IT.",
-            ach3: "Лидирующие места в спорте.",
-            card7Title: "❓ Частые вопросы (FAQ)",
-            q1: "1. Какие документы нужны?",
-            a1: "Свидетельство о рождении, копия паспорта родителя, 4 фото (3x4) и мед. справка.",
-            q2: "2. Во сколько 2-я смена?",
-            a2: "Вторая смена начинается в 13:00.",
-            card8Title: "📩 Онлайн-приемная",
-            fName: "Ваше имя",
-            fContact: "Телефон или Telegram",
-            fMsg: "Ваш вопрос...",
-            fBtn: "ОТПРАВИТЬ",
-            card9Title: "📍 Карта",
-            card9Desc: "Школа на Google Картах:",
-            footerText: "[ Школа №6 им. Токтогула ]"
-        }
-    };
-
-    function setLanguage(lang) {
-        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-        if (lang === 'ky') {
-            document.querySelectorAll('.lang-btn')[0].classList.add('active');
-        } else {
-            document.querySelectorAll('.lang-btn')[1].classList.add('active');
-        }
-
-        const data = translations[lang];
-
-        document.getElementById('txt-badge').innerText = data.badge;
-        document.getElementById('txt-title').innerText = data.title;
-        document.getElementById('txt-subtitle').innerText = data.subtitle;
-
-        document.getElementById('card1-title').innerText = data.card1Title;
-        document.getElementById('card1-desc').innerText = data.card1Desc;
-        document.getElementById('card1-box').innerHTML = data.card1Box;
-
-        document.getElementById('card2-title').innerText = data.card2Title;
-        document.getElementById('card2-desc').innerText = data.card2Desc;
-        document.getElementById('st-students').innerText = data.stStudents;
-        document.getElementById('st-teachers').innerText = data.stTeachers;
-        document.getElementById('st-rooms').innerText = data.stRooms;
-        document.getElementById('st-shifts').innerText = data.stShifts;
-
-        document.getElementById('card3-title').innerText = data.card3Title;
-        document.getElementById('dir-name').innerHTML = data.dirName;
-        document.getElementById('ped-staff').innerHTML = data.pedStaff;
-
-        document.getElementById('card4-title').innerText = data.card4Title;
-        document.getElementById('card4-desc').innerText = data.card4Desc;
-        document.getElementById('inf-1').innerHTML = data.inf1;
-        document.getElementById('inf-2').innerHTML = data.inf2;
-        document.getElementById('inf-3').innerHTML = data.inf3;
-        document.getElementById('inf-4').innerHTML = data.inf4;
-        document.getElementById('inf-5').innerHTML = data.inf5;
-
-        document.getElementById('card5-title').innerText = data.card5Title;
-        document.getElementById('th-lesson').innerText = data.thLesson;
-        document.getElementById('th-s1').innerText = data.thS1;
-        document.getElementById('th-s2').innerText = data.thS2;
-
-        document.getElementById('card6-title').innerText = data.card6Title;
-        document.getElementById('ach-1').innerText = data.ach1;
-        document.getElementById('ach-2').innerText = data.ach2;
-        document.getElementById('ach-3').innerText = data.ach3;
-
-        document.getElementById('card7-title').innerText = data.card7Title;
-        document.getElementById('q1').innerText = data.q1;
-        document.getElementById('a1').innerText = data.a1;
-        document.getElementById('q2').innerText = data.q2;
-        document.getElementById('a2').innerText = data.a2;
-
-        document.getElementById('card8-title').innerText = data.card8Title;
-        document.getElementById('f-name').placeholder = data.fName;
-        document.getElementById('f-contact').placeholder = data.fContact;
-        document.getElementById('f-msg').placeholder = data.fMsg;
-        document.getElementById('f-btn').innerText = data.fBtn;
-
-        document.getElementById('card9-title').innerText = data.card9Title;
-        document.getElementById('card9-desc').innerText = data.card9Desc;
-        document.getElementById('footer-text').innerText = data.footerText;
+      // РЕЖИМ ХАОСА: Каждый 4-й ход метеорит уничтожает случайную занятую клетку!
+      if (chaosMode && moveCount > 0 && moveCount % 4 === 0) {
+        triggerChaosEvent();
+      } else {
+        statusDisplay.textContent = `Ход: ${currentPlayer}`;
+      }
     }
-</script>
+
+    function makeMove(index, player) {
+      boardState[index] = player;
+      cells[index].textContent = player;
+      cells[index].classList.add('taken');
+    }
+
+    function triggerChaosEvent() {
+      const occupiedIndices = boardState
+        .map((val, idx) => val !== null ? idx : null)
+        .filter(val => val !== null);
+
+      if (occupiedIndices.length === 0) return;
+
+      const randomIndex = occupiedIndices[Math.floor(Math.random() * occupiedIndices.length)];
+      
+      statusDisplay.textContent = `💥 МЕТЕОРИТ уничтожил клетку ${randomIndex + 1}!`;
+      
+      setTimeout(() => {
+        boardState[randomIndex] = null;
+        cells[randomIndex].textContent = '💥';
+        
+        setTimeout(() => {
+          cells[randomIndex].textContent = '';
+          cells[randomIndex].classList.remove('taken');
+          statusDisplay.textContent = `Ход: ${currentPlayer}`;
+        }, 800);
+      }, 300);
+    }
+
+    function checkWin() {
+      for (let condition of winningConditions) {
+        const [a, b, c] = condition;
+        if (boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
+          cells[a].classList.add('winning');
+          cells[b].classList.add('winning');
+          cells[c].classList.add('winning');
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function updateScore() {
+      document.getElementById('scoreX').textContent = score.X;
+      document.getElementById('scoreO').textContent = score.O;
+    }
+
+    function resetGame() {
+      boardState = Array(9).fill(null);
+      currentPlayer = P1;
+      gameActive = true;
+      moveCount = 0;
+      statusDisplay.textContent = `Ход: ${currentPlayer}`;
+      cells.forEach(cell => {
+        cell.textContent = '';
+        cell.classList.remove('taken', 'winning');
+      });
+    }
+
+    chaosBtn.addEventListener('click', () => {
+      chaosMode = !chaosMode;
+      chaosBtn.textContent = `Режим ХАОС: ${chaosMode ? 'Вкл' : 'Выкл'}`;
+      chaosBtn.style.background = chaosMode ? '#ff7675' : '#b2bec3';
+    });
+
+    cells.forEach(cell => cell.addEventListener('click', handleCellClick));
+    resetBtn.addEventListener('click', resetGame);
+  </script>
 </body>
 </html>
