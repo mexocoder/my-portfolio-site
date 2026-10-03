@@ -1,246 +1,194 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MexoMC | Bio</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Consolas', 'Courier New', monospace;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MexoMC — Python & Web Developer</title>
+<meta name="description" content="MexoMC: Python-разработчик, Telegram-боты на aiogram 3, веб и 3D-сайты, деплой и поддержка 24/7.">
+<meta name="theme-color" content="#0d0f12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🐍%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0f12;--c1:#00ffcc;--c2:#ff007f;--tx:#e8eef2;--mut:#98a6b3;--bd:rgba(255,255,255,.12)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.65;overflow-x:hidden}
+a{color:inherit}
+#bg{position:fixed;inset:0;z-index:-2}
+.floor{position:fixed;left:-50%;right:-50%;bottom:0;height:42vh;z-index:-1;pointer-events:none;background:linear-gradient(var(--c1) 1px,transparent 1px) 0 0/50px 50px,linear-gradient(90deg,var(--c1) 1px,transparent 1px) 0 0/50px 50px;opacity:.13;transform:perspective(300px) rotateX(62deg);transform-origin:bottom;animation:fl 3s linear infinite;-webkit-mask-image:linear-gradient(transparent,#000);mask-image:linear-gradient(transparent,#000)}
+@keyframes fl{to{background-position:0 50px,0 0}}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+section{padding:72px 0}
+h1,h2,h3{font-family:Orbitron,Inter,sans-serif}
+h2{font-size:clamp(1.5rem,4vw,2.1rem);margin-bottom:34px;text-align:center}
+h2::after{content:"";display:block;width:70px;height:3px;margin:12px auto 0;background:linear-gradient(90deg,var(--c1),var(--c2));box-shadow:0 0 12px var(--c1)}
+h3{font-size:1.05rem;margin-bottom:10px}
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:rgba(255,255,255,.05);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--bd);border-radius:18px;padding:26px;transition:transform .3s,border-color .3s,box-shadow .3s}
+.card:hover{transform:translateY(-6px);border-color:var(--c1);box-shadow:0 0 28px rgba(0,255,204,.25),inset 0 0 20px rgba(0,255,204,.06)}
+.card:nth-child(even):hover{border-color:var(--c2);box-shadow:0 0 28px rgba(255,0,127,.25),inset 0 0 20px rgba(255,0,127,.06)}
+.card p{color:var(--mut);font-size:.95rem}
+.ico{font-size:2rem;display:block;margin-bottom:10px}
 
-    body {
-      background: #0d0f12;
-      color: #00ffcc;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow-x: hidden;
-      padding: 20px;
-    }
+/* Hero */
+.hero{min-height:100vh;display:flex;align-items:center;text-align:center;padding:60px 0}
+.av{position:relative;isolation:isolate;width:170px;height:170px;margin:0 auto 26px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font:900 64px Orbitron,sans-serif;color:var(--c1);animation:pl 2.4s ease-in-out infinite}
+.av::before{content:"";position:absolute;inset:-6px;border-radius:50%;z-index:-1;background:conic-gradient(var(--c1),var(--c2),var(--c1));animation:sp 4s linear infinite}
+.av img{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;object-fit:cover}
+@keyframes sp{to{transform:rotate(360deg)}}
+@keyframes pl{0%,100%{box-shadow:0 0 22px rgba(0,255,204,.35)}50%{box-shadow:0 0 50px rgba(0,255,204,.6),0 0 90px rgba(255,0,127,.35)}}
+h1{font-size:clamp(2.6rem,10vw,5rem);line-height:1.1;background:linear-gradient(90deg,var(--c1),var(--c2));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px rgba(0,255,204,.4))}
+.status{color:var(--mut);margin:14px auto 0;max-width:640px}
+.typ{font:700 clamp(1rem,3.4vw,1.4rem)/1.4 Orbitron,sans-serif;color:var(--c1);margin:18px 0 30px;min-height:2.2em;text-shadow:0 0 10px rgba(0,255,204,.6)}
+.cur{display:inline-block;width:2px;height:1.1em;margin-left:3px;vertical-align:-.15em;background:var(--c2);animation:bl 1s steps(1) infinite}
+@keyframes bl{50%{opacity:0}}
+.btns{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+.btn{display:inline-block;padding:13px 26px;border-radius:12px;border:1px solid var(--c1);color:var(--c1);font-weight:600;text-decoration:none;transition:.25s}
+.btn:hover,.btn:focus-visible{transform:translateY(-3px);box-shadow:0 0 24px currentColor;outline:0}
+.btn.p{background:var(--c1);color:var(--bg);box-shadow:0 0 20px rgba(0,255,204,.5)}
+.btn.s{border-color:var(--c2);color:var(--c2)}
+.btn.g{border-color:var(--bd);color:var(--tx)}
 
-    /* Сетка на фоне */
-    .bg-grid {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: 
-        linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
-      background-size: 30px 30px;
-      z-index: -1;
-      animation: moveBg 20s linear infinite;
-    }
+/* About & stack */
+.about{max-width:760px;margin:0 auto;text-align:center;font-size:1.08rem}
+.about strong{color:var(--c1)}
+.chips{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+.chip{padding:11px 22px;border-radius:999px;font-weight:600;background:rgba(255,255,255,.05);border:1px solid var(--c1);color:var(--c1);box-shadow:0 0 14px rgba(0,255,204,.3);transition:.25s}
+.chip:nth-child(even){border-color:var(--c2);color:var(--c2);box-shadow:0 0 14px rgba(255,0,127,.3)}
+.chip:hover{transform:scale(1.08);box-shadow:0 0 28px currentColor}
 
-    @keyframes moveBg {
-      0% { background-position: 0 0; }
-      100% { background-position: 30px 60px; }
-    }
+/* Projects */
+.pic{height:120px;margin:-26px -26px 20px;border-radius:18px 18px 0 0;display:grid;place-items:center;font-size:3rem;background:linear-gradient(135deg,rgba(0,255,204,.2),rgba(255,0,127,.2))}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.tags span{font-size:.78rem;padding:3px 10px;border-radius:6px;border:1px solid var(--bd);color:var(--c1)}
 
-    .bio-card {
-      background: rgba(18, 22, 28, 0.85);
-      border: 1px solid rgba(0, 255, 204, 0.3);
-      border-radius: 16px;
-      padding: 30px;
-      max-width: 450px;
-      width: 100%;
-      box-shadow: 0 0 30px rgba(0, 255, 204, 0.15);
-      backdrop-filter: blur(10px);
-      text-align: center;
-      animation: floatCard 4s ease-in-out infinite alternate;
-    }
-
-    @keyframes floatCard {
-      from { transform: translateY(0px); }
-      to { transform: translateY(-8px); }
-    }
-
-    .avatar-container {
-      position: relative;
-      width: 110px;
-      height: 110px;
-      margin: 0 auto 20px;
-    }
-
-    .avatar {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #00ffcc;
-      box-shadow: 0 0 15px #00ffcc;
-    }
-
-    .status-dot {
-      position: absolute;
-      bottom: 5px;
-      right: 5px;
-      width: 15px;
-      height: 15px;
-      background: #00ffcc;
-      border-radius: 50%;
-      border: 2px solid #0d0f12;
-      box-shadow: 0 0 8px #00ffcc;
-      animation: pulse 1.5s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 204, 0.7); }
-      70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 255, 204, 0); }
-      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 204, 0); }
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      color: #fff;
-      margin-bottom: 5px;
-    }
-
-    .typing-text {
-      color: #00ffcc;
-      font-size: 0.95rem;
-      margin-bottom: 20px;
-      min-height: 24px;
-      border-right: 2px solid #00ffcc;
-      display: inline-block;
-      white-space: nowrap;
-      animation: blink 0.75s step-end infinite;
-    }
-
-    @keyframes blink {
-      from, to { border-color: transparent }
-      50% { border-color: #00ffcc; }
-    }
-
-    .bio-desc {
-      color: #a0aec0;
-      font-size: 0.9rem;
-      line-height: 1.5;
-      margin-bottom: 25px;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 25px;
-    }
-
-    .tag {
-      background: rgba(0, 255, 204, 0.1);
-      border: 1px solid rgba(0, 255, 204, 0.3);
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      color: #00ffcc;
-    }
-
-    .links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .link-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 20px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(0, 255, 204, 0.3);
-      border-radius: 8px;
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 0.95rem;
-      transition: all 0.3s ease;
-    }
-
-    .link-btn:hover {
-      background: #00ffcc;
-      color: #0d0f12;
-      box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
-      transform: scale(1.02);
-    }
-  </style>
+/* Contact */
+.cta{text-align:center;padding:48px 24px}
+.cta h2{margin-bottom:24px}
+.big{font-size:1.2rem;padding:18px 44px;animation:pl 2.4s ease-in-out infinite}
+footer{padding:28px 0 36px;text-align:center;color:var(--mut);font-size:.9rem}
+footer a{margin:0 10px;text-decoration:none}
+footer a:hover{color:var(--c1)}
+@media(max-width:560px){section{padding:52px 0}.btn{width:100%;text-align:center}.big{padding:16px 26px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
 </head>
 <body>
+<canvas id="bg"></canvas>
+<div class="floor"></div>
 
-  <div class="bg-grid"></div>
-
-  <div class="bio-card">
-    <div class="avatar-container">
-      <img src="avatar.png" alt="MexoMC Avatar" class="avatar">
-      <div class="status-dot"></div>
-    </div>
-
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="av"><span>M</span><img src="https://i.ibb.co/3kWK7yG/avatar.png" alt="Аватар MexoMC" onerror="this.remove()"></div>
     <h1>MexoMC</h1>
-    <div class="typing-text" id="typing"></div>
-
-    <p class="bio-desc">
-      Создаю Telegram-ботов, пишу асинхронные скрипты и автоматизации на Python, занимаюсь веб-версткой и кастомной разработкой.
-    </p>
-
-    <div class="tags">
-      <span class="tag">Python</span>
-      <span class="tag">aiogram 3</span>
-      <span class="tag">AsyncIO</span>
-      <span class="tag">SQL / SQLite</span>
-      <span class="tag">HTML/CSS</span>
-      <span class="tag">Minecraft Dev</span>
-    </div>
-
-    <div class="links">
-      <a href="https://t.me/MexoMC" target="_blank" class="link-btn">💬 Telegram Аккаунт (@MexoMC)</a>
-      <a href="https://t.me/mexolauncher" target="_blank" class="link-btn">📢 Telegram Канал (@mexolauncher)</a>
-      <a href="https://github.com/mexocoder" target="_blank" class="link-btn">💻 GitHub (@mexocoder)</a>
+    <p class="status">1+ год в разработке | Python &amp; Web Developer | Full Support &amp; Hosting</p>
+    <p class="typ"><span id="type"></span><i class="cur"></i></p>
+    <div class="btns">
+      <a class="btn p" href="https://t.me/MexoMC" target="_blank" rel="noopener">✈️ Написать в Telegram</a>
+      <a class="btn s" href="https://t.me/mexolauncher" target="_blank" rel="noopener">📢 Мой Канал</a>
+      <a class="btn g" href="https://github.com/mexocoder" target="_blank" rel="noopener">💻 GitHub</a>
     </div>
   </div>
+</header>
 
-  <script>
-    const phrases = [
-      "FEMBOY 🌸"
-      "Hitler 🌸"
-    ];
+<main>
+<section id="about"><div class="wrap">
+  <h2>Обо мне</h2>
+  <p class="about">Занимаюсь программированием уже более года. Специализируюсь на разработке асинхронных <strong>Telegram-ботов</strong> любой сложности (aiogram 3), современных веб-сайтов и 3D-интерактивных страниц. Не просто пишу код, а самостоятельно деплою проекты на сервер/хостинг, настраиваю их работу и обеспечиваю постоянную техническую поддержку — если что-то пойдет не так, сразу исправляю и держу на контроле.</p>
+</div></section>
 
-    let partIndex = 0;
-    let textIndex = 0;
-    let isDeleting = false;
-    const typingElement = document.getElementById("typing");
+<section id="services"><div class="wrap">
+  <h2>Что я делаю</h2>
+  <div class="grid">
+    <article class="card"><span class="ico">🤖</span><h3>Telegram-боты любой сложности</h3><p>Магазины, системы записи, автопостинг, админ-панели, интеграция с платежами и базами данных SQLite.</p></article>
+    <article class="card"><span class="ico">🌐</span><h3>Разработка сайтов &amp; 3D Web</h3><p>Создание стильных лендингов, визиток и сайтов с 3D-эффектами и интерактивом, адаптивных под любые устройства.</p></article>
+    <article class="card"><span class="ico">🚀</span><h3>Деплой, Хостинг &amp; Поддержка</h3><p>Полная настройка сервера (VPS/VDS), запуск проекта «под ключ», мониторинг стабильности и быстрое исправление ошибок.</p></article>
+    <article class="card"><span class="ico">🔗</span><h3>Связка «Сайт + Telegram-бот»</h3><p>Настройка мгновенных уведомлений о заказах и заявках с вашего сайта прямо в Telegram.</p></article>
+  </div>
+</div></section>
 
-    function typeEffect() {
-      const currentPhrase = phrases[partIndex];
+<section id="why"><div class="wrap">
+  <h2>Почему выбирают меня</h2>
+  <div class="grid">
+    <article class="card"><span class="ico">⚡</span><h3>Полный цикл разработки</h3><p>От идеи и дизайна до развертывания на сервере.</p></article>
+    <article class="card"><span class="ico">🛡️</span><h3>Гарантия и сопровождение</h3><p>Слежу за работой ваших ботов и сайтов после сдачи.</p></article>
+    <article class="card"><span class="ico">🐍</span><h3>Быстрый async-код</h3><p>Асинхронный и быстрый код на Python без задержек.</p></article>
+  </div>
+</div></section>
 
-      if (isDeleting) {
-        typingElement.textContent = currentPhrase.substring(0, textIndex - 1);
-        textIndex--;
-      } else {
-        typingElement.textContent = currentPhrase.substring(0, textIndex + 1);
-        textIndex++;
-      }
+<section id="stack"><div class="wrap">
+  <h2>Skills &amp; Stack</h2>
+  <div class="chips">
+    <span class="chip">Python</span><span class="chip">aiogram 3</span><span class="chip">AsyncIO</span><span class="chip">SQLite / SQL</span><span class="chip">HTML5 / CSS3</span><span class="chip">JavaScript</span><span class="chip">3D Web / Three.js</span><span class="chip">Git / GitHub</span><span class="chip">Linux / VPS Deployment</span><span class="chip">REST API</span>
+  </div>
+</div></section>
 
-      let speed = isDeleting ? 50 : 100;
+<section id="projects"><div class="wrap">
+  <h2>Проекты</h2>
+  <div class="grid">
+    <article class="card"><div class="pic">🤖</div><h3>Complex Telegram Bot Ecosystem</h3><div class="tags"><span>aiogram 3</span><span>SQLite</span><span>Async</span></div><p>Бот любой сложности с базами данных и автоматизацией.</p></article>
+    <article class="card"><div class="pic">🧊</div><h3>Interactive 3D / Cyber Portfolio</h3><div class="tags"><span>HTML</span><span>CSS</span><span>JS</span><span>3D</span></div><p>Современный анимированный сайт с интерактивными элементами.</p></article>
+    <article class="card"><div class="pic">🔗</div><h3>Web &amp; Bot Auto-Sync Service</h3><div class="tags"><span>Python</span><span>Telegram</span><span>VDS</span></div><p>Сервис автоматической пересылки заявок с сайта в Telegram-бота с деплоем на VDS.</p></article>
+  </div>
+</div></section>
 
-      if (!isDeleting && textIndex === currentPhrase.length) {
-        speed = 2000;
-        isDeleting = true;
-      } else if (isDeleting && textIndex === 0) {
-        isDeleting = false;
-        partIndex = (partIndex + 1) % phrases.length;
-        speed = 500;
-      }
+<section id="contact"><div class="wrap">
+  <div class="card cta">
+    <h2>Нужен готовый проект с настройкой и поддержкой?</h2>
+    <a class="btn p big" href="https://t.me/MexoMC" target="_blank" rel="noopener">✈️ Написать @MexoMC</a>
+  </div>
+</div></section>
+</main>
 
-      setTimeout(typeEffect, speed);
+<footer>
+  <a href="https://t.me/MexoMC" target="_blank" rel="noopener">Telegram</a>
+  <a href="https://t.me/mexolauncher" target="_blank" rel="noopener">Канал</a>
+  <a href="https://github.com/mexocoder" target="_blank" rel="noopener">GitHub</a>
+  <p>© <span id="yr"></span> MexoMC</p>
+</footer>
+
+<script>
+// Typing effect
+const phrases=["Python Developer (aiogram 3) 🐍","Telegram Bots Any Complexity 🤖","Web & 3D Websites Developer 🌐","Deployment & 24/7 Support ⚡"];
+const out=document.getElementById('type');let pi=0,ci=0,del=false;
+(function type(){
+  const w=Array.from(phrases[pi]);
+  ci+=del?-1:1;out.textContent=w.slice(0,ci).join('');
+  let d=del?35:75;
+  if(!del&&ci===w.length){del=true;d=1600}
+  else if(del&&ci===0){del=false;pi=(pi+1)%phrases.length;d=300}
+  setTimeout(type,d);
+})();
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+// Neon particle network
+const cv=document.getElementById('bg'),cx=cv.getContext('2d');
+let W,H,P=[];const M={x:-999,y:-999},R=14000;
+function resize(){
+  W=cv.width=innerWidth;H=cv.height=innerHeight;
+  P=Array.from({length:Math.min(110,Math.floor(W*H/14000))},()=>({
+    x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,
+    r:Math.random()*1.6+.6,c:Math.random()<.7?'0,255,204':'255,0,127'}));
+}
+function line(a,b,d,col){
+  cx.strokeStyle=`rgba(${col},${.22*(1-d/R)})`;cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke();
+}
+function frame(){
+  cx.clearRect(0,0,W,H);
+  for(let i=0;i<P.length;i++){
+    const p=P[i];p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+    cx.fillStyle=`rgba(${p.c},.85)`;cx.beginPath();cx.arc(p.x,p.y,p.r,0,6.283);cx.fill();
+    for(let j=i+1;j<P.length;j++){
+      const q=P[j],d=(p.x-q.x)**2+(p.y-q.y)**2;if(d<R)line(p,q,d,p.c);
     }
-
-    document.addEventListener("DOMContentLoaded", typeEffect);
-  </script>
+    const dm=(p.x-M.x)**2+(p.y-M.y)**2;if(dm<R*1.6)line(p,M,dm/1.6,'255,0,127');
+  }
+  requestAnimationFrame(frame);
+}
+addEventListener('pointermove',e=>{M.x=e.clientX;M.y=e.clientY});
+addEventListener('resize',resize);
+resize();frame();
+</script>
 </body>
 </html>
