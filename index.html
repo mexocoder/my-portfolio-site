@@ -1,194 +1,399 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MexoMC — Python & Web Developer</title>
-<meta name="description" content="MexoMC: Python-разработчик, Telegram-боты на aiogram 3, веб и 3D-сайты, деплой и поддержка 24/7.">
-<meta name="theme-color" content="#0d0f12">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🐍%3C/text%3E%3C/svg%3E">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#0d0f12;--c1:#00ffcc;--c2:#ff007f;--tx:#e8eef2;--mut:#98a6b3;--bd:rgba(255,255,255,.12)}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.65;overflow-x:hidden}
-a{color:inherit}
-#bg{position:fixed;inset:0;z-index:-2}
-.floor{position:fixed;left:-50%;right:-50%;bottom:0;height:42vh;z-index:-1;pointer-events:none;background:linear-gradient(var(--c1) 1px,transparent 1px) 0 0/50px 50px,linear-gradient(90deg,var(--c1) 1px,transparent 1px) 0 0/50px 50px;opacity:.13;transform:perspective(300px) rotateX(62deg);transform-origin:bottom;animation:fl 3s linear infinite;-webkit-mask-image:linear-gradient(transparent,#000);mask-image:linear-gradient(transparent,#000)}
-@keyframes fl{to{background-position:0 50px,0 0}}
-.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-section{padding:72px 0}
-h1,h2,h3{font-family:Orbitron,Inter,sans-serif}
-h2{font-size:clamp(1.5rem,4vw,2.1rem);margin-bottom:34px;text-align:center}
-h2::after{content:"";display:block;width:70px;height:3px;margin:12px auto 0;background:linear-gradient(90deg,var(--c1),var(--c2));box-shadow:0 0 12px var(--c1)}
-h3{font-size:1.05rem;margin-bottom:10px}
-.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-.card{background:rgba(255,255,255,.05);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--bd);border-radius:18px;padding:26px;transition:transform .3s,border-color .3s,box-shadow .3s}
-.card:hover{transform:translateY(-6px);border-color:var(--c1);box-shadow:0 0 28px rgba(0,255,204,.25),inset 0 0 20px rgba(0,255,204,.06)}
-.card:nth-child(even):hover{border-color:var(--c2);box-shadow:0 0 28px rgba(255,0,127,.25),inset 0 0 20px rgba(255,0,127,.06)}
-.card p{color:var(--mut);font-size:.95rem}
-.ico{font-size:2rem;display:block;margin-bottom:10px}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+  <title>Cyber 2048 Edition</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+    }
 
-/* Hero */
-.hero{min-height:100vh;display:flex;align-items:center;text-align:center;padding:60px 0}
-.av{position:relative;isolation:isolate;width:170px;height:170px;margin:0 auto 26px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font:900 64px Orbitron,sans-serif;color:var(--c1);animation:pl 2.4s ease-in-out infinite}
-.av::before{content:"";position:absolute;inset:-6px;border-radius:50%;z-index:-1;background:conic-gradient(var(--c1),var(--c2),var(--c1));animation:sp 4s linear infinite}
-.av img{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;object-fit:cover}
-@keyframes sp{to{transform:rotate(360deg)}}
-@keyframes pl{0%,100%{box-shadow:0 0 22px rgba(0,255,204,.35)}50%{box-shadow:0 0 50px rgba(0,255,204,.6),0 0 90px rgba(255,0,127,.35)}}
-h1{font-size:clamp(2.6rem,10vw,5rem);line-height:1.1;background:linear-gradient(90deg,var(--c1),var(--c2));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px rgba(0,255,204,.4))}
-.status{color:var(--mut);margin:14px auto 0;max-width:640px}
-.typ{font:700 clamp(1rem,3.4vw,1.4rem)/1.4 Orbitron,sans-serif;color:var(--c1);margin:18px 0 30px;min-height:2.2em;text-shadow:0 0 10px rgba(0,255,204,.6)}
-.cur{display:inline-block;width:2px;height:1.1em;margin-left:3px;vertical-align:-.15em;background:var(--c2);animation:bl 1s steps(1) infinite}
-@keyframes bl{50%{opacity:0}}
-.btns{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
-.btn{display:inline-block;padding:13px 26px;border-radius:12px;border:1px solid var(--c1);color:var(--c1);font-weight:600;text-decoration:none;transition:.25s}
-.btn:hover,.btn:focus-visible{transform:translateY(-3px);box-shadow:0 0 24px currentColor;outline:0}
-.btn.p{background:var(--c1);color:var(--bg);box-shadow:0 0 20px rgba(0,255,204,.5)}
-.btn.s{border-color:var(--c2);color:var(--c2)}
-.btn.g{border-color:var(--bd);color:var(--tx)}
+    body {
+      background-color: #05050a;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
 
-/* About & stack */
-.about{max-width:760px;margin:0 auto;text-align:center;font-size:1.08rem}
-.about strong{color:var(--c1)}
-.chips{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
-.chip{padding:11px 22px;border-radius:999px;font-weight:600;background:rgba(255,255,255,.05);border:1px solid var(--c1);color:var(--c1);box-shadow:0 0 14px rgba(0,255,204,.3);transition:.25s}
-.chip:nth-child(even){border-color:var(--c2);color:var(--c2);box-shadow:0 0 14px rgba(255,0,127,.3)}
-.chip:hover{transform:scale(1.08);box-shadow:0 0 28px currentColor}
+    .header {
+      width: 90%;
+      max-width: 400px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
 
-/* Projects */
-.pic{height:120px;margin:-26px -26px 20px;border-radius:18px 18px 0 0;display:grid;place-items:center;font-size:3rem;background:linear-gradient(135deg,rgba(0,255,204,.2),rgba(255,0,127,.2))}
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
-.tags span{font-size:.78rem;padding:3px 10px;border-radius:6px;border:1px solid var(--bd);color:var(--c1)}
+    .title-box {
+      display: flex;
+      flex-direction: column;
+    }
 
-/* Contact */
-.cta{text-align:center;padding:48px 24px}
-.cta h2{margin-bottom:24px}
-.big{font-size:1.2rem;padding:18px 44px;animation:pl 2.4s ease-in-out infinite}
-footer{padding:28px 0 36px;text-align:center;color:var(--mut);font-size:.9rem}
-footer a{margin:0 10px;text-decoration:none}
-footer a:hover{color:var(--c1)}
-@media(max-width:560px){section{padding:52px 0}.btn{width:100%;text-align:center}.big{padding:16px 26px}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
-</style>
+    .title {
+      font-size: 38px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #c084fc, #f472b6, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      font-size: 11px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .scores {
+      display: flex;
+      gap: 10px;
+    }
+
+    .score-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(192, 132, 252, 0.3);
+      padding: 8px 14px;
+      border-radius: 12px;
+      text-align: center;
+      min-width: 75px;
+    }
+
+    .score-label {
+      font-size: 10px;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .score-value {
+      font-size: 18px;
+      font-weight: 900;
+      font-family: monospace;
+      color: #f472b6;
+    }
+
+    #game-board {
+      width: 90vw;
+      height: 90vw;
+      max-width: 400px;
+      max-height: 400px;
+      background: rgba(18, 18, 30, 0.85);
+      border: 2px solid rgba(192, 132, 252, 0.2);
+      border-radius: 18px;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 10px;
+      position: relative;
+      box-shadow: 0 0 30px rgba(192, 132, 252, 0.15);
+    }
+
+    .cell {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 26px;
+      font-weight: 900;
+      font-family: monospace;
+      transition: all 0.12s ease-in-out;
+      box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.05);
+    }
+
+    /* Цвета плиток в стилистике Cyberpunk / Neon */
+    .tile-2 { background: rgba(255, 255, 255, 0.1); color: #f8fafc; border: 1px solid rgba(255, 255, 255, 0.2); }
+    .tile-4 { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid #38bdf8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.3); }
+    .tile-8 { background: rgba(192, 132, 252, 0.25); color: #c084fc; border: 1px solid #c084fc; box-shadow: 0 0 12px rgba(192, 132, 252, 0.4); }
+    .tile-16 { background: rgba(244, 114, 182, 0.3); color: #f472b6; border: 1px solid #f472b6; box-shadow: 0 0 14px rgba(244, 114, 182, 0.5); }
+    .tile-32 { background: rgba(251, 113, 133, 0.35); color: #fb7185; border: 1px solid #fb7185; box-shadow: 0 0 16px rgba(251, 113, 133, 0.6); }
+    .tile-64 { background: rgba(245, 158, 11, 0.4); color: #fbbf24; border: 1px solid #fbbf24; box-shadow: 0 0 18px rgba(245, 158, 11, 0.7); }
+    .tile-128 { background: rgba(52, 211, 153, 0.45); color: #34d399; border: 1px solid #34d399; font-size: 22px; box-shadow: 0 0 20px rgba(52, 211, 153, 0.8); }
+    .tile-256 { background: rgba(129, 140, 248, 0.5); color: #818cf8; border: 1px solid #818cf8; font-size: 22px; box-shadow: 0 0 22px rgba(129, 140, 248, 0.8); }
+    .tile-512 { background: rgba(232, 121, 249, 0.6); color: #ffffff; border: 1px solid #e879f9; font-size: 22px; box-shadow: 0 0 24px rgba(232, 121, 249, 0.9); }
+    .tile-1024 { background: rgba(244, 63, 94, 0.7); color: #ffffff; border: 1px solid #f43f5e; font-size: 18px; box-shadow: 0 0 26px rgba(244, 63, 94, 1); }
+    .tile-2048 { background: linear-gradient(135deg, #f43f5e, #c084fc, #38bdf8); color: #ffffff; font-size: 18px; box-shadow: 0 0 30px #c084fc; animation: pulse 1.5s infinite alternate; }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.05); }
+    }
+
+    .controls {
+      width: 90%;
+      max-width: 400px;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid #c084fc;
+      border-radius: 12px;
+      background: rgba(192, 132, 252, 0.12);
+      color: #c084fc;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.2s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+      background: rgba(192, 132, 252, 0.3);
+    }
+
+    #game-over {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(5, 5, 12, 0.9);
+      border-radius: 18px;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .game-over-title {
+      font-size: 32px;
+      font-weight: 900;
+      color: #f43f5e;
+      margin-bottom: 12px;
+    }
+  </style>
 </head>
 <body>
-<canvas id="bg"></canvas>
-<div class="floor"></div>
 
-<header class="hero" id="top">
-  <div class="wrap">
-    <div class="av"><span>M</span><img src="https://i.ibb.co/3kWK7yG/avatar.png" alt="Аватар MexoMC" onerror="this.remove()"></div>
-    <h1>MexoMC</h1>
-    <p class="status">1+ год в разработке | Python &amp; Web Developer | Full Support &amp; Hosting</p>
-    <p class="typ"><span id="type"></span><i class="cur"></i></p>
-    <div class="btns">
-      <a class="btn p" href="https://t.me/MexoMC" target="_blank" rel="noopener">✈️ Написать в Telegram</a>
-      <a class="btn s" href="https://t.me/mexolauncher" target="_blank" rel="noopener">📢 Мой Канал</a>
-      <a class="btn g" href="https://github.com/mexocoder" target="_blank" rel="noopener">💻 GitHub</a>
+  <div class="header">
+    <div class="title-box">
+      <div class="title">2048</div>
+      <div class="subtitle">Cyber Neon Edition</div>
+    </div>
+    <div class="scores">
+      <div class="score-box">
+        <div class="score-label">Счёт</div>
+        <div id="score" class="score-value">0</div>
+      </div>
+      <div class="score-box">
+        <div class="score-label">Рекорд</div>
+        <div id="best-score" class="score-value">0</div>
+      </div>
     </div>
   </div>
-</header>
 
-<main>
-<section id="about"><div class="wrap">
-  <h2>Обо мне</h2>
-  <p class="about">Занимаюсь программированием уже более года. Специализируюсь на разработке асинхронных <strong>Telegram-ботов</strong> любой сложности (aiogram 3), современных веб-сайтов и 3D-интерактивных страниц. Не просто пишу код, а самостоятельно деплою проекты на сервер/хостинг, настраиваю их работу и обеспечиваю постоянную техническую поддержку — если что-то пойдет не так, сразу исправляю и держу на контроле.</p>
-</div></section>
-
-<section id="services"><div class="wrap">
-  <h2>Что я делаю</h2>
-  <div class="grid">
-    <article class="card"><span class="ico">🤖</span><h3>Telegram-боты любой сложности</h3><p>Магазины, системы записи, автопостинг, админ-панели, интеграция с платежами и базами данных SQLite.</p></article>
-    <article class="card"><span class="ico">🌐</span><h3>Разработка сайтов &amp; 3D Web</h3><p>Создание стильных лендингов, визиток и сайтов с 3D-эффектами и интерактивом, адаптивных под любые устройства.</p></article>
-    <article class="card"><span class="ico">🚀</span><h3>Деплой, Хостинг &amp; Поддержка</h3><p>Полная настройка сервера (VPS/VDS), запуск проекта «под ключ», мониторинг стабильности и быстрое исправление ошибок.</p></article>
-    <article class="card"><span class="ico">🔗</span><h3>Связка «Сайт + Telegram-бот»</h3><p>Настройка мгновенных уведомлений о заказах и заявках с вашего сайта прямо в Telegram.</p></article>
+  <div id="game-board">
+    <div id="game-over">
+      <div class="game-over-title">ИГРА ОКОНЧЕНА!</div>
+      <button class="btn" style="width: 200px;" onclick="resetGame()">ПОПРОБОВАТЬ СНОВА</button>
+    </div>
   </div>
-</div></section>
 
-<section id="why"><div class="wrap">
-  <h2>Почему выбирают меня</h2>
-  <div class="grid">
-    <article class="card"><span class="ico">⚡</span><h3>Полный цикл разработки</h3><p>От идеи и дизайна до развертывания на сервере.</p></article>
-    <article class="card"><span class="ico">🛡️</span><h3>Гарантия и сопровождение</h3><p>Слежу за работой ваших ботов и сайтов после сдачи.</p></article>
-    <article class="card"><span class="ico">🐍</span><h3>Быстрый async-код</h3><p>Асинхронный и быстрый код на Python без задержек.</p></article>
+  <div class="controls">
+    <button class="btn" onclick="resetGame()">🔄 НОВАЯ ИГРА</button>
   </div>
-</div></section>
 
-<section id="stack"><div class="wrap">
-  <h2>Skills &amp; Stack</h2>
-  <div class="chips">
-    <span class="chip">Python</span><span class="chip">aiogram 3</span><span class="chip">AsyncIO</span><span class="chip">SQLite / SQL</span><span class="chip">HTML5 / CSS3</span><span class="chip">JavaScript</span><span class="chip">3D Web / Three.js</span><span class="chip">Git / GitHub</span><span class="chip">Linux / VPS Deployment</span><span class="chip">REST API</span>
-  </div>
-</div></section>
+  <script>
+    const boardSize = 4;
+    let board = [];
+    let score = 0;
+    let bestScore = localStorage.getItem('cyber2048_best') || 0;
 
-<section id="projects"><div class="wrap">
-  <h2>Проекты</h2>
-  <div class="grid">
-    <article class="card"><div class="pic">🤖</div><h3>Complex Telegram Bot Ecosystem</h3><div class="tags"><span>aiogram 3</span><span>SQLite</span><span>Async</span></div><p>Бот любой сложности с базами данных и автоматизацией.</p></article>
-    <article class="card"><div class="pic">🧊</div><h3>Interactive 3D / Cyber Portfolio</h3><div class="tags"><span>HTML</span><span>CSS</span><span>JS</span><span>3D</span></div><p>Современный анимированный сайт с интерактивными элементами.</p></article>
-    <article class="card"><div class="pic">🔗</div><h3>Web &amp; Bot Auto-Sync Service</h3><div class="tags"><span>Python</span><span>Telegram</span><span>VDS</span></div><p>Сервис автоматической пересылки заявок с сайта в Telegram-бота с деплоем на VDS.</p></article>
-  </div>
-</div></section>
+    const boardElement = document.getElementById('game-board');
+    const scoreElement = document.getElementById('score');
+    const bestScoreElement = document.getElementById('best-score');
+    const gameOverElement = document.getElementById('game-over');
 
-<section id="contact"><div class="wrap">
-  <div class="card cta">
-    <h2>Нужен готовый проект с настройкой и поддержкой?</h2>
-    <a class="btn p big" href="https://t.me/MexoMC" target="_blank" rel="noopener">✈️ Написать @MexoMC</a>
-  </div>
-</div></section>
-</main>
+    bestScoreElement.textContent = bestScore;
 
-<footer>
-  <a href="https://t.me/MexoMC" target="_blank" rel="noopener">Telegram</a>
-  <a href="https://t.me/mexolauncher" target="_blank" rel="noopener">Канал</a>
-  <a href="https://github.com/mexocoder" target="_blank" rel="noopener">GitHub</a>
-  <p>© <span id="yr"></span> MexoMC</p>
-</footer>
+    function initBoard() {
+      board = Array(boardSize).fill(null).map(() => Array(boardSize).fill(0));
+      score = 0;
+      updateScore(0);
+      gameOverElement.style.display = 'none';
 
-<script>
-// Typing effect
-const phrases=["Python Developer (aiogram 3) 🐍","Telegram Bots Any Complexity 🤖","Web & 3D Websites Developer 🌐","Deployment & 24/7 Support ⚡"];
-const out=document.getElementById('type');let pi=0,ci=0,del=false;
-(function type(){
-  const w=Array.from(phrases[pi]);
-  ci+=del?-1:1;out.textContent=w.slice(0,ci).join('');
-  let d=del?35:75;
-  if(!del&&ci===w.length){del=true;d=1600}
-  else if(del&&ci===0){del=false;pi=(pi+1)%phrases.length;d=300}
-  setTimeout(type,d);
-})();
-document.getElementById('yr').textContent=new Date().getFullYear();
+      // Генерация сетки
+      boardElement.innerHTML = '';
+      boardElement.appendChild(gameOverElement);
 
-// Neon particle network
-const cv=document.getElementById('bg'),cx=cv.getContext('2d');
-let W,H,P=[];const M={x:-999,y:-999},R=14000;
-function resize(){
-  W=cv.width=innerWidth;H=cv.height=innerHeight;
-  P=Array.from({length:Math.min(110,Math.floor(W*H/14000))},()=>({
-    x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,
-    r:Math.random()*1.6+.6,c:Math.random()<.7?'0,255,204':'255,0,127'}));
-}
-function line(a,b,d,col){
-  cx.strokeStyle=`rgba(${col},${.22*(1-d/R)})`;cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke();
-}
-function frame(){
-  cx.clearRect(0,0,W,H);
-  for(let i=0;i<P.length;i++){
-    const p=P[i];p.x+=p.vx;p.y+=p.vy;
-    if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
-    cx.fillStyle=`rgba(${p.c},.85)`;cx.beginPath();cx.arc(p.x,p.y,p.r,0,6.283);cx.fill();
-    for(let j=i+1;j<P.length;j++){
-      const q=P[j],d=(p.x-q.x)**2+(p.y-q.y)**2;if(d<R)line(p,q,d,p.c);
+      for (let r = 0; r < boardSize; r++) {
+        for (let c = 0; c < boardSize; c++) {
+          const cell = document.createElement('div');
+          cell.classList.add('cell');
+          cell.id = `cell-${r}-${c}`;
+          boardElement.appendChild(cell);
+        }
+      }
+
+      spawnTile();
+      spawnTile();
+      renderBoard();
     }
-    const dm=(p.x-M.x)**2+(p.y-M.y)**2;if(dm<R*1.6)line(p,M,dm/1.6,'255,0,127');
-  }
-  requestAnimationFrame(frame);
-}
-addEventListener('pointermove',e=>{M.x=e.clientX;M.y=e.clientY});
-addEventListener('resize',resize);
-resize();frame();
-</script>
+
+    function spawnTile() {
+      const emptyCells = [];
+      for (let r = 0; r < boardSize; r++) {
+        for (let c = 0; c < boardSize; c++) {
+          if (board[r][c] === 0) emptyCells.push({ r, c });
+        }
+      }
+
+      if (emptyCells.length > 0) {
+        const { r, c } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+        board[r][c] = Math.random() < 0.9 ? 2 : 4;
+      }
+    }
+
+    function renderBoard() {
+      for (let r = 0; r < boardSize; r++) {
+        for (let c = 0; c < boardSize; c++) {
+          const cell = document.getElementById(`cell-${r}-${c}`);
+          const val = board[r][c];
+
+          cell.textContent = val > 0 ? val : '';
+          cell.className = 'cell';
+
+          if (val > 0) {
+            cell.classList.add(`tile-${val <= 2048 ? val : 2048}`);
+          }
+        }
+      }
+    }
+
+    function updateScore(amount) {
+      score += amount;
+      scoreElement.textContent = score;
+      if (score > bestScore) {
+        bestScore = score;
+        bestScoreElement.textContent = bestScore;
+        localStorage.setItem('cyber2048_best', bestScore);
+      }
+    }
+
+    function slide(row) {
+      let arr = row.filter(val => val !== 0);
+      for (let i = 0; i < arr.length - 1; i++) {
+        if (arr[i] === arr[i + 1]) {
+          arr[i] *= 2;
+          updateScore(arr[i]);
+          arr[i + 1] = 0;
+        }
+      }
+      arr = arr.filter(val => val !== 0);
+      while (arr.length < boardSize) arr.push(0);
+      return arr;
+    }
+
+    function moveLeft() {
+      let moved = false;
+      for (let r = 0; r < boardSize; r++) {
+        const original = [...board[r]];
+        board[r] = slide(board[r]);
+        if (JSON.stringify(original) !== JSON.stringify(board[r])) moved = true;
+      }
+      return moved;
+    }
+
+    function rotateBoard() {
+      const newBoard = Array(boardSize).fill(null).map(() => Array(boardSize).fill(0));
+      for (let r = 0; r < boardSize; r++) {
+        for (let c = 0; c < boardSize; c++) {
+          newBoard[c][boardSize - 1 - r] = board[r][c];
+        }
+      }
+      board = newBoard;
+    }
+
+    function move(direction) {
+      let moved = false;
+
+      // Поворачиваем доску для единообразной обработки
+      if (direction === 'UP') { rotateBoard(); rotateBoard(); rotateBoard(); moved = moveLeft(); rotateBoard(); }
+      if (direction === 'RIGHT') { rotateBoard(); rotateBoard(); moved = moveLeft(); rotateBoard(); rotateBoard(); }
+      if (direction === 'DOWN') { rotateBoard(); moved = moveLeft(); rotateBoard(); rotateBoard(); rotateBoard(); }
+      if (direction === 'LEFT') { moved = moveLeft(); }
+
+      if (moved) {
+        spawnTile();
+        renderBoard();
+        checkGameOver();
+      }
+    }
+
+    function checkGameOver() {
+      for (let r = 0; r < boardSize; r++) {
+        for (let c = 0; c < boardSize; c++) {
+          if (board[r][c] === 0) return;
+          if (c < boardSize - 1 && board[r][c] === board[r][c + 1]) return;
+          if (r < boardSize - 1 && board[r][c] === board[r + 1][c]) return;
+        }
+      }
+      gameOverElement.style.display = 'flex';
+    }
+
+    function resetGame() {
+      initBoard();
+    }
+
+    // Обработка клавиатуры (Клавиши W A S D и Стрелки)
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' || e.key === 'a') move('LEFT');
+      if (e.key === 'ArrowRight' || e.key === 'd') move('RIGHT');
+      if (e.key === 'ArrowUp' || e.key === 'w') move('UP');
+      if (e.key === 'ArrowDown' || e.key === 's') move('DOWN');
+    });
+
+    // Обработка свайпов пальцем на телефоне
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    window.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    });
+
+    window.addEventListener('touchend', (e) => {
+      if (!touchStartX || !touchStartY) return;
+
+      const diffX = e.changedTouches[0].clientX - touchStartX;
+      const diffY = e.changedTouches[0].clientY - touchStartY;
+
+      if (Math.abs(diffX) > Math.abs(diffY)) {
+        if (Math.abs(diffX) > 30) {
+          if (diffX > 0) move('RIGHT');
+          else move('LEFT');
+        }
+      } else {
+        if (Math.abs(diffY) > 30) {
+          if (diffY > 0) move('DOWN');
+          else move('UP');
+        }
+      }
+
+      touchStartX = 0;
+      touchStartY = 0;
+    });
+
+    initBoard();
+  </script>
 </body>
 </html>
