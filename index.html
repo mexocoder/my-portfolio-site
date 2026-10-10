@@ -2,398 +2,329 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
-  <title>Cyber 2048 Edition</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Anime & Gaming Quiz — Tik-Tok Edition</title>
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
       user-select: none;
-      -webkit-user-select: none;
-      touch-action: none;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     body {
-      background-color: #05050a;
-      color: #ffffff;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      height: 100vh;
-      width: 100vw;
+      background: #080711;
+      color: #fff;
+      min-height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
+      padding: 16px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(20, 18, 38, 0.95);
+      border: 2px solid rgba(192, 132, 252, 0.3);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 0 30px rgba(192, 132, 252, 0.15);
+      text-align: center;
+      position: relative;
       overflow: hidden;
     }
 
-    .header {
-      width: 90%;
-      max-width: 400px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .title-box {
-      display: flex;
-      flex-direction: column;
-    }
-
     .title {
-      font-size: 38px;
+      font-size: 26px;
       font-weight: 900;
-      background: linear-gradient(135deg, #c084fc, #f472b6, #38bdf8);
+      background: linear-gradient(135deg, #f472b6, #c084fc, #38bdf8);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      letter-spacing: 2px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
     }
 
     .subtitle {
-      font-size: 11px;
+      font-size: 13px;
       color: #94a3b8;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      margin-bottom: 20px;
     }
 
-    .scores {
-      display: flex;
-      gap: 10px;
-    }
-
-    .score-box {
+    input[type="text"] {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: 2px solid rgba(192, 132, 252, 0.4);
       background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(192, 132, 252, 0.3);
-      padding: 8px 14px;
-      border-radius: 12px;
-      text-align: center;
-      min-width: 75px;
-    }
-
-    .score-label {
-      font-size: 10px;
-      color: #cbd5e1;
-      text-transform: uppercase;
+      color: #fff;
+      font-size: 15px;
       font-weight: 700;
-    }
-
-    .score-value {
-      font-size: 18px;
-      font-weight: 900;
-      font-family: monospace;
-      color: #f472b6;
-    }
-
-    #game-board {
-      width: 90vw;
-      height: 90vw;
-      max-width: 400px;
-      max-height: 400px;
-      background: rgba(18, 18, 30, 0.85);
-      border: 2px solid rgba(192, 132, 252, 0.2);
-      border-radius: 18px;
-      padding: 10px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(4, 1fr);
-      gap: 10px;
-      position: relative;
-      box-shadow: 0 0 30px rgba(192, 132, 252, 0.15);
-    }
-
-    .cell {
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 12px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 26px;
-      font-weight: 900;
-      font-family: monospace;
-      transition: all 0.12s ease-in-out;
-      box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.05);
-    }
-
-    /* Цвета плиток в стилистике Cyberpunk / Neon */
-    .tile-2 { background: rgba(255, 255, 255, 0.1); color: #f8fafc; border: 1px solid rgba(255, 255, 255, 0.2); }
-    .tile-4 { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid #38bdf8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.3); }
-    .tile-8 { background: rgba(192, 132, 252, 0.25); color: #c084fc; border: 1px solid #c084fc; box-shadow: 0 0 12px rgba(192, 132, 252, 0.4); }
-    .tile-16 { background: rgba(244, 114, 182, 0.3); color: #f472b6; border: 1px solid #f472b6; box-shadow: 0 0 14px rgba(244, 114, 182, 0.5); }
-    .tile-32 { background: rgba(251, 113, 133, 0.35); color: #fb7185; border: 1px solid #fb7185; box-shadow: 0 0 16px rgba(251, 113, 133, 0.6); }
-    .tile-64 { background: rgba(245, 158, 11, 0.4); color: #fbbf24; border: 1px solid #fbbf24; box-shadow: 0 0 18px rgba(245, 158, 11, 0.7); }
-    .tile-128 { background: rgba(52, 211, 153, 0.45); color: #34d399; border: 1px solid #34d399; font-size: 22px; box-shadow: 0 0 20px rgba(52, 211, 153, 0.8); }
-    .tile-256 { background: rgba(129, 140, 248, 0.5); color: #818cf8; border: 1px solid #818cf8; font-size: 22px; box-shadow: 0 0 22px rgba(129, 140, 248, 0.8); }
-    .tile-512 { background: rgba(232, 121, 249, 0.6); color: #ffffff; border: 1px solid #e879f9; font-size: 22px; box-shadow: 0 0 24px rgba(232, 121, 249, 0.9); }
-    .tile-1024 { background: rgba(244, 63, 94, 0.7); color: #ffffff; border: 1px solid #f43f5e; font-size: 18px; box-shadow: 0 0 26px rgba(244, 63, 94, 1); }
-    .tile-2048 { background: linear-gradient(135deg, #f43f5e, #c084fc, #38bdf8); color: #ffffff; font-size: 18px; box-shadow: 0 0 30px #c084fc; animation: pulse 1.5s infinite alternate; }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      100% { transform: scale(1.05); }
-    }
-
-    .controls {
-      width: 90%;
-      max-width: 400px;
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
+      text-align: center;
+      margin-bottom: 14px;
+      outline: none;
     }
 
     .btn {
       width: 100%;
       padding: 14px;
-      border: 2px solid #c084fc;
+      border: none;
       border-radius: 12px;
-      background: rgba(192, 132, 252, 0.12);
-      color: #c084fc;
+      background: linear-gradient(135deg, #f472b6, #c084fc);
+      color: #fff;
+      font-size: 15px;
       font-weight: 800;
-      font-size: 14px;
       cursor: pointer;
       text-transform: uppercase;
       letter-spacing: 1px;
-      transition: all 0.2s ease;
+      box-shadow: 0 0 15px rgba(244, 114, 182, 0.3);
+      transition: transform 0.1s;
     }
 
     .btn:active {
       transform: scale(0.97);
-      background: rgba(192, 132, 252, 0.3);
     }
 
-    #game-over {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(5, 5, 12, 0.9);
-      border-radius: 18px;
-      display: none;
-      flex-direction: column;
-      justify-content: center;
+    /* Таймер-бар */
+    .timer-container {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .timer-bar {
+      height: 100%;
+      width: 100%;
+      background: #38bdf8;
+      transition: width 0.1s linear;
+    }
+
+    .question-box {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      min-height: 50px;
+      display: flex;
       align-items: center;
-      z-index: 100;
+      justify-content: center;
     }
 
-    .game-over-title {
-      font-size: 32px;
-      font-weight: 900;
-      color: #f43f5e;
-      margin-bottom: 12px;
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .option-btn {
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.04);
+      color: #e2e8f0;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+    }
+
+    .option-btn:active {
+      background: rgba(192, 132, 252, 0.2);
+    }
+
+    /* ТАБЛИЦА ЛИДЕРОВ */
+    .leaderboard {
+      margin-top: 20px;
+      text-align: left;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 14px;
+      border-radius: 12px;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+
+    .lb-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 13px;
+    }
+
+    .lb-rank {
+      color: #f472b6;
+      font-weight: 800;
+      width: 25px;
     }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <div class="title-box">
-      <div class="title">2048</div>
-      <div class="subtitle">Cyber Neon Edition</div>
-    </div>
-    <div class="scores">
-      <div class="score-box">
-        <div class="score-label">Счёт</div>
-        <div id="score" class="score-value">0</div>
-      </div>
-      <div class="score-box">
-        <div class="score-label">Рекорд</div>
-        <div id="best-score" class="score-value">0</div>
-      </div>
+  <div class="card" id="start-screen">
+    <div class="title">ANIME & GAME QUIZ</div>
+    <div class="subtitle">⚡ Проверь себя за 3 секунды и заними ТОП-1!</div>
+    
+    <input type="text" id="player-nickname" placeholder="Введи твой ник (для ТОПа)" maxlength="15">
+    <button class="btn" onclick="startQuiz()">НАЧАТЬ ТЕСТ 🚀</button>
+
+    <div class="leaderboard" id="main-lb">
+      <div style="font-weight: 800; font-size: 12px; color: #c084fc; margin-bottom: 8px;">🏆 ТОП ИГРОКОВ:</div>
+      <div id="lb-list"></div>
     </div>
   </div>
 
-  <div id="game-board">
-    <div id="game-over">
-      <div class="game-over-title">ИГРА ОКОНЧЕНА!</div>
-      <button class="btn" style="width: 200px;" onclick="resetGame()">ПОПРОБОВАТЬ СНОВА</button>
+  <div class="card" id="quiz-screen" style="display: none;">
+    <div class="timer-container">
+      <div class="timer-bar" id="timer-bar"></div>
     </div>
+
+    <div class="question-box" id="question-text">Загрузка вопроса...</div>
+
+    <div class="options-grid" id="options-container"></div>
   </div>
 
-  <div class="controls">
-    <button class="btn" onclick="resetGame()">🔄 НОВАЯ ИГРА</button>
+  <div class="card" id="result-screen" style="display: none;">
+    <div class="title">РЕЗУЛЬТАТ</div>
+    <div class="subtitle" id="result-score-text">Ты набрал 0 очков!</div>
+
+    <button class="btn" onclick="location.reload()">ПРОЙТИ ЕЩЁ РАЗ 🔄</button>
+
+    <div class="leaderboard" style="margin-top: 20px;">
+      <div style="font-weight: 800; font-size: 12px; color: #c084fc; margin-bottom: 8px;">🏆 ТОП ИГРОКОВ:</div>
+      <div id="res-lb-list"></div>
+    </div>
   </div>
 
   <script>
-    const boardSize = 4;
-    let board = [];
+    // База вопросов (Сюда легко добавлять новые вопросы под твои ролики!)
+    const questions = [
+      {
+        q: "🎵 Из какого аниме опенинг «Unravel»?",
+        options: ["Токийский Гуль", "Атака Титанов", "Клинок рассекающий демонов", "Наруто"],
+        correct: 0
+      },
+      {
+        q: "🗡️ Кто главный герой аниме «Провожающая в последний путь Фрирен»?",
+        options: ["Ферн", "Фрирен", "Штарк", "Гимли"],
+        correct: 1
+      },
+      {
+        q: "🎮 Какая фишка используется для ускорения в Crystal PvP в Minecraft?",
+        options: ["Элитра", "Якорь Возрождения", "Кристалл Энда", "Обсидиан"],
+        correct: 2
+      },
+      {
+        q: "⚡ Сколько духов всего было у Сидо в «Date A Live»?",
+        options: ["5", "8", "10+", "3"],
+        correct: 2
+      }
+    ];
+
+    let currentQ = 0;
     let score = 0;
-    let bestScore = localStorage.getItem('cyber2048_best') || 0;
+    let timer;
+    let timeLeft = 100; // %
+    let nickname = "Игрок";
 
-    const boardElement = document.getElementById('game-board');
-    const scoreElement = document.getElementById('score');
-    const bestScoreElement = document.getElementById('best-score');
-    const gameOverElement = document.getElementById('game-over');
+    function updateLeaderboardUI() {
+      const lb = JSON.parse(localStorage.getItem('quiz_lb') || '[]');
+      let html = '';
+      lb.sort((a, b) => b.score - a.score);
 
-    bestScoreElement.textContent = bestScore;
+      lb.slice(0, 5).forEach((item, index) => {
+        html += `
+          <div class="lb-item">
+            <span><span class="lb-rank">#${index + 1}</span> ${item.name}</span>
+            <span style="font-weight:800; color:#38bdf8;">${item.score} очков</span>
+          </div>
+        `;
+      });
 
-    function initBoard() {
-      board = Array(boardSize).fill(null).map(() => Array(boardSize).fill(0));
-      score = 0;
-      updateScore(0);
-      gameOverElement.style.display = 'none';
+      document.getElementById('lb-list').innerHTML = html || 'Пока нет рекордов. Будь первым!';
+      document.getElementById('res-lb-list').innerHTML = html;
+    }
 
-      // Генерация сетки
-      boardElement.innerHTML = '';
-      boardElement.appendChild(gameOverElement);
+    function startQuiz() {
+      const inputNick = document.getElementById('player-nickname').value.trim();
+      if (inputNick) nickname = inputNick;
 
-      for (let r = 0; r < boardSize; r++) {
-        for (let c = 0; c < boardSize; c++) {
-          const cell = document.createElement('div');
-          cell.classList.add('cell');
-          cell.id = `cell-${r}-${c}`;
-          boardElement.appendChild(cell);
+      document.getElementById('start-screen').style.display = 'none';
+      document.getElementById('quiz-screen').style.display = 'block';
+
+      showQuestion();
+    }
+
+    function showQuestion() {
+      if (currentQ >= questions.length) {
+        endQuiz();
+        return;
+      }
+
+      const qData = questions[currentQ];
+      document.getElementById('question-text').textContent = qData.q;
+
+      const optsContainer = document.getElementById('options-container');
+      optsContainer.innerHTML = '';
+
+      qData.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.textContent = `${idx + 1}. ${opt}`;
+        btn.onclick = () => checkAnswer(idx);
+        optsContainer.appendChild(btn);
+      });
+
+      startTimer();
+    }
+
+    function startTimer() {
+      clearInterval(timer);
+      timeLeft = 100;
+      const bar = document.getElementById('timer-bar');
+
+      timer = setInterval(() => {
+        timeLeft -= 2.5; // Скорость таймера (примерно 4 секунды на вопрос)
+        bar.style.width = `${timeLeft}%`;
+
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          checkAnswer(-1); // Время вышло
         }
-      }
-
-      spawnTile();
-      spawnTile();
-      renderBoard();
+      }, 100);
     }
 
-    function spawnTile() {
-      const emptyCells = [];
-      for (let r = 0; r < boardSize; r++) {
-        for (let c = 0; c < boardSize; c++) {
-          if (board[r][c] === 0) emptyCells.push({ r, c });
-        }
+    function checkAnswer(selectedIdx) {
+      clearInterval(timer);
+      const qData = questions[currentQ];
+
+      if (selectedIdx === qData.correct) {
+        score += Math.round(100 * (timeLeft / 100)) + 50; // Бонус за скорость
       }
 
-      if (emptyCells.length > 0) {
-        const { r, c } = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-        board[r][c] = Math.random() < 0.9 ? 2 : 4;
-      }
+      currentQ++;
+      showQuestion();
     }
 
-    function renderBoard() {
-      for (let r = 0; r < boardSize; r++) {
-        for (let c = 0; c < boardSize; c++) {
-          const cell = document.getElementById(`cell-${r}-${c}`);
-          const val = board[r][c];
+    function endQuiz() {
+      document.getElementById('quiz-screen').style.display = 'none';
+      document.getElementById('result-screen').style.display = 'block';
 
-          cell.textContent = val > 0 ? val : '';
-          cell.className = 'cell';
+      document.getElementById('result-score-text').textContent = `${nickname}, твой результат: ${score} очков!`;
 
-          if (val > 0) {
-            cell.classList.add(`tile-${val <= 2048 ? val : 2048}`);
-          }
-        }
-      }
+      // Сохраняем результат
+      let lb = JSON.parse(localStorage.getItem('quiz_lb') || '[]');
+      lb.push({ name: nickname, score: score });
+      localStorage.setItem('quiz_lb', JSON.stringify(lb));
+
+      updateLeaderboardUI();
     }
 
-    function updateScore(amount) {
-      score += amount;
-      scoreElement.textContent = score;
-      if (score > bestScore) {
-        bestScore = score;
-        bestScoreElement.textContent = bestScore;
-        localStorage.setItem('cyber2048_best', bestScore);
-      }
-    }
-
-    function slide(row) {
-      let arr = row.filter(val => val !== 0);
-      for (let i = 0; i < arr.length - 1; i++) {
-        if (arr[i] === arr[i + 1]) {
-          arr[i] *= 2;
-          updateScore(arr[i]);
-          arr[i + 1] = 0;
-        }
-      }
-      arr = arr.filter(val => val !== 0);
-      while (arr.length < boardSize) arr.push(0);
-      return arr;
-    }
-
-    function moveLeft() {
-      let moved = false;
-      for (let r = 0; r < boardSize; r++) {
-        const original = [...board[r]];
-        board[r] = slide(board[r]);
-        if (JSON.stringify(original) !== JSON.stringify(board[r])) moved = true;
-      }
-      return moved;
-    }
-
-    function rotateBoard() {
-      const newBoard = Array(boardSize).fill(null).map(() => Array(boardSize).fill(0));
-      for (let r = 0; r < boardSize; r++) {
-        for (let c = 0; c < boardSize; c++) {
-          newBoard[c][boardSize - 1 - r] = board[r][c];
-        }
-      }
-      board = newBoard;
-    }
-
-    function move(direction) {
-      let moved = false;
-
-      // Поворачиваем доску для единообразной обработки
-      if (direction === 'UP') { rotateBoard(); rotateBoard(); rotateBoard(); moved = moveLeft(); rotateBoard(); }
-      if (direction === 'RIGHT') { rotateBoard(); rotateBoard(); moved = moveLeft(); rotateBoard(); rotateBoard(); }
-      if (direction === 'DOWN') { rotateBoard(); moved = moveLeft(); rotateBoard(); rotateBoard(); rotateBoard(); }
-      if (direction === 'LEFT') { moved = moveLeft(); }
-
-      if (moved) {
-        spawnTile();
-        renderBoard();
-        checkGameOver();
-      }
-    }
-
-    function checkGameOver() {
-      for (let r = 0; r < boardSize; r++) {
-        for (let c = 0; c < boardSize; c++) {
-          if (board[r][c] === 0) return;
-          if (c < boardSize - 1 && board[r][c] === board[r][c + 1]) return;
-          if (r < boardSize - 1 && board[r][c] === board[r + 1][c]) return;
-        }
-      }
-      gameOverElement.style.display = 'flex';
-    }
-
-    function resetGame() {
-      initBoard();
-    }
-
-    // Обработка клавиатуры (Клавиши W A S D и Стрелки)
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft' || e.key === 'a') move('LEFT');
-      if (e.key === 'ArrowRight' || e.key === 'd') move('RIGHT');
-      if (e.key === 'ArrowUp' || e.key === 'w') move('UP');
-      if (e.key === 'ArrowDown' || e.key === 's') move('DOWN');
-    });
-
-    // Обработка свайпов пальцем на телефоне
-    let touchStartX = 0;
-    let touchStartY = 0;
-
-    window.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-    });
-
-    window.addEventListener('touchend', (e) => {
-      if (!touchStartX || !touchStartY) return;
-
-      const diffX = e.changedTouches[0].clientX - touchStartX;
-      const diffY = e.changedTouches[0].clientY - touchStartY;
-
-      if (Math.abs(diffX) > Math.abs(diffY)) {
-        if (Math.abs(diffX) > 30) {
-          if (diffX > 0) move('RIGHT');
-          else move('LEFT');
-        }
-      } else {
-        if (Math.abs(diffY) > 30) {
-          if (diffY > 0) move('DOWN');
-          else move('UP');
-        }
-      }
-
-      touchStartX = 0;
-      touchStartY = 0;
-    });
-
-    initBoard();
+    updateLeaderboardUI();
   </script>
 </body>
 </html>
