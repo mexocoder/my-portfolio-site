@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Deep Space Atmosphere</title>
+    <title>Deep Space Flight</title>
     <style>
         html, body {
             margin: 0;
@@ -11,7 +11,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #020205;
+            background-color: #000;
             touch-action: none;
         }
         canvas {
@@ -22,7 +22,7 @@
         #ui-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 2, 5, 0.85);
+            background: radial-gradient(circle, rgba(10,10,25,0.9) 0%, rgba(0,0,2,0.95) 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -30,54 +30,65 @@
             z-index: 10;
             font-family: sans-serif;
             color: #fff;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.6s ease;
         }
         h1 {
             margin: 0 0 10px 0;
-            font-size: 24px;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(100, 150, 255, 0.5);
+            font-size: 26px;
+            letter-spacing: 3px;
+            color: #00f2fe;
+            text-shadow: 0 0 15px rgba(0, 242, 254, 0.6);
         }
         p {
-            color: #8892b0;
-            margin-bottom: 25px;
+            color: #a0aec0;
+            margin-bottom: 30px;
             font-size: 14px;
+            text-align: center;
+            padding: 0 20px;
         }
         button {
-            padding: 14px 32px;
+            padding: 16px 36px;
             font-size: 16px;
             font-weight: bold;
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             color: #000;
             border: none;
-            border-radius: 25px;
+            border-radius: 30px;
             cursor: pointer;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.5);
+        }
+        #hud {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: rgba(255,255,255,0.6);
+            font-family: monospace;
+            font-size: 12px;
+            pointer-events: none;
+            display: none;
         }
     </style>
 </head>
 <body>
 
     <div id="ui-overlay">
-        <h1>DEEP COSMOS</h1>
-        <p>Нажмите для запуска полноэкранного режима</p>
-        <button onclick="startCosmos()">ИССЛЕДОВАТЬ</button>
+        <h1>КОСМИЧЕСКИЙ ПОЛЕТ</h1>
+        <p>Нажмите экран для ускорения. Никаких сложных движений!</p>
+        <button onclick="startFlight()">СТАРТ</button>
     </div>
 
+    <div id="hud">РЕЖИМ ПОЛЕТА: АКТИВЕН [СКОРОСТЬ: СТАБИЛЬНАЯ]</div>
     <canvas id="spaceCanvas"></canvas>
 
-    <!-- Подключаем Three.js из CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <script>
-        let scene, camera, renderer, stars, dust;
-        let mouseX = 0, mouseY = 0;
-        let targetX = 0, targetY = 0;
-        let windowHalfX = window.innerWidth / 2;
-        let windowHalfY = window.innerHeight / 2;
+        let scene, camera, renderer, starField, nebulaParticles;
+        let speed = 0.5;
+        let isBoosting = false;
 
-        function startCosmos() {
-            // 1. Полный экран и горизонтальный режим
+        function startFlight() {
+            // Полноэкранный режим и фиксация горизонтали
             const docElement = document.documentElement;
             if (docElement.requestFullscreen) docElement.requestFullscreen();
             if (screen.orientation && screen.orientation.lock) {
@@ -87,125 +98,126 @@
             // Плавное скрытие меню
             const overlay = document.getElementById('ui-overlay');
             overlay.style.opacity = '0';
-            setTimeout(() => overlay.style.display = 'none', 500);
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                document.getElementById('hud').style.display = 'block';
+            }, 600);
 
             init3D();
         }
 
+        // Функция генерации круглой мягкой текстуры для звезд (чтобы не было квадратов!)
+        function createStarTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 64;
+            canvas.height = 64;
+            const ctx = canvas.getContext('2d');
+
+            const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+            gradient.addColorStop(0, 'rgba(255,255,255,1)');
+            gradient.addColorStop(0.3, 'rgba(200,220,255,0.8)');
+            gradient.addColorStop(1, 'rgba(0,0,0,0)');
+
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 64, 64);
+
+            const texture = new THREE.CanvasTexture(canvas);
+            return texture;
+        }
+
         function init3D() {
-            // Сцена
             scene = new THREE.Scene();
-            scene.fog = new THREE.FogExp2(0x020205, 0.001);
+            scene.fog = new THREE.FogExp2(0x020208, 0.0015);
 
-            // Камера
-            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
-            camera.position.z = 1;
+            camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 3000);
+            camera.position.set(0, 0, 0);
 
-            // Рендерер с сочными настройками цвета
-            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('spaceCanvas'), antialias: true, powerPreference: "high-performance" });
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('spaceCanvas'), antialias: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             renderer.toneMapping = THREE.ACESFilmicToneMapping;
-            renderer.toneMappingExposure = 1.2;
 
-            // --- СОЗДАЕМ ЗВЕЗДНОЕ НЕБО (Несколько слоев разной глубины) ---
-            createStarLayers();
+            // Создаем красивое звездное поле с круглыми светящимися текстурами
+            createStars();
+            createNebulaDust();
 
-            // --- СОЗДАЕМ КОСМИЧЕСКУЮ ПЫЛЬ / ТУМАННОСТЬ ---
-            createDustClouds();
-
-            // События управления (сенсор и мышь)
+            // Управление: тап по экрану дает ускорение (импульс)
+            window.addEventListener('pointerdown', () => { isBoosting = true; });
+            window.addEventListener('pointerup', () => { isBoosting = false; });
             window.addEventListener('resize', onWindowResize);
-            document.addEventListener('pointermove', onPointerMove);
 
-            // Запуск цикла анимации
             animate();
         }
 
-        function createStarLayers() {
-            const starsCount = 3000;
+        function createStars() {
+            const count = 4000;
             const geometry = new THREE.BufferGeometry();
-            const positions = new Float32Array(starsCount * 3);
-            const colors = new Float32Array(starsCount * 3);
+            const positions = new Float32Array(count * 3);
+            const colors = new Float32Array(count * 3);
 
-            const colorOptions = [
-                new THREE.Color('#ffffff'), // Белые
-                new THREE.Color('#8ab4f8'), // Холодные голубые
-                new THREE.Color('#f28b82'), // Мягкие красные/оранжевые
-                new THREE.Color('#fef08a')  // Желтоватые
+            const palette = [
+                new THREE.Color('#ffffff'),
+                new THREE.Color('#70a1ff'),
+                new THREE.Color('#ff4757'),
+                new THREE.Color('#ffa502')
             ];
 
-            for (let i = 0; i < starsCount * 3; i += 3) {
-                // Раскидываем звезды в большой сфере вокруг камеры
-                const u = Math.random();
-                const v = Math.random();
-                const theta = u * 2.0 * Math.PI;
-                const phi = Math.acos(2.0 * v - 1.0);
-                const r = 400 + Math.random() * 600;
+            for (let i = 0; i < count * 3; i += 3) {
+                positions[i]     = (Math.random() - 0.5) * 2000;
+                positions[i + 1] = (Math.random() - 0.5) * 2000;
+                positions[i + 2] = (Math.random() - 0.5) * 2000 - 1000;
 
-                positions[i]     = r * Math.sin(phi) * Math.cos(theta);
-                positions[i + 1] = r * Math.sin(phi) * Math.sin(theta);
-                positions[i + 2] = r * Math.cos(phi);
-
-                const chosenColor = colorOptions[Math.floor(Math.random() * colorOptions.length)];
-                colors[i]     = chosenColor.r;
-                colors[i + 1] = chosenColor.g;
-                colors[i + 2] = chosenColor.b;
+                const col = palette[Math.floor(Math.random() * palette.length)];
+                colors[i]     = col.r;
+                colors[i + 1] = col.g;
+                colors[i + 2] = col.b;
             }
 
             geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
             geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-            // Простой кастомный материал с мягкими точками (шейдерный подход через спрайты)
             const material = new THREE.PointsMaterial({
-                size: 2.5,
+                size: 12,
+                map: createStarTexture(), // Главный секрет: круглая текстура вместо квадратов
                 vertexColors: true,
                 transparent: true,
-                opacity: 0.8,
+                opacity: 0.9,
                 blending: THREE.AdditiveBlending,
-                sizeAttenuation: true
+                depthWrite: false
             });
 
-            stars = new THREE.Points(geometry, material);
-            scene.add(stars);
+            starField = new THREE.Points(geometry, material);
+            scene.add(starField);
         }
 
-        function createDustClouds() {
-            // Создаем объемные светящиеся облака пыли для глубины пространства
-            const particleCount = 600;
+        function createNebulaDust() {
+            const count = 1000;
             const geometry = new THREE.BufferGeometry();
-            const positions = new Float32Array(particleCount * 3);
+            const positions = new Float32Array(count * 3);
 
-            for (let i = 0; i < particleCount * 3; i += 3) {
-                positions[i]     = (Math.random() - 0.5) * 800;
-                positions[i + 1] = (Math.random() - 0.5) * 800;
-                positions[i + 2] = (Math.random() - 0.5) * 800;
+            for (let i = 0; i < count * 3; i += 3) {
+                positions[i]     = (Math.random() - 0.5) * 1500;
+                positions[i + 1] = (Math.random() - 0.5) * 1500;
+                positions[i + 2] = (Math.random() - 0.5) * 2000;
             }
 
             geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
             const material = new THREE.PointsMaterial({
-                size: 25,
-                color: new THREE.Color('#1b263b'), // Глубокий сине-фиолетовый туман
+                size: 45,
+                map: createStarTexture(),
+                color: new THREE.Color('#1e0538'), // Фиолетово-синий космический газ
                 transparent: true,
-                opacity: 0.15,
+                opacity: 0.25,
                 blending: THREE.AdditiveBlending,
                 depthWrite: false
             });
 
-            dust = new THREE.Points(geometry, material);
-            scene.add(dust);
-        }
-
-        function onPointerMove(event) {
-            // Считаем координаты движения пальца/мыши относительно центра экрана
-            mouseX = (event.clientX - windowHalfX) * 0.001;
-            mouseY = (event.clientY - windowHalfY) * 0.001;
+            nebulaParticles = new THREE.Points(geometry, material);
+            scene.add(nebulaParticles);
         }
 
         function onWindowResize() {
-            windowHalfX = window.innerWidth / 2;
-            windowHalfY = window.innerHeight / 2;
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
@@ -214,16 +226,22 @@
         function animate() {
             requestAnimationFrame(animate);
 
-            // Плавная инерция камеры за движением пальца (эффект параллакса)
-            targetX += (mouseX - targetX) * 0.05;
-            targetY += (mouseY - targetY) * 0.05;
+            // Плавное ускорение при удержании экрана
+            let targetSpeed = isBoosting ? 4.5 : 0.6;
+            speed += (targetSpeed - speed) * 0.1;
 
-            camera.rotation.y = targetX * 1.5;
-            camera.rotation.x = targetY * 1.5;
+            // Двигаем звезды навстречу камере (эффект полета)
+            const positions = starField.geometry.attributes.position.array;
+            for (let i = 2; i < positions.length; i += 3) {
+                positions[i] += speed;
+                if (positions[i] > 500) {
+                    positions[i] = -1500; // Возвращаем улетевшую звезду назад
+                }
+            }
+            starField.geometry.attributes.position.needsUpdate = true;
 
-            // Медленное вращение звезд и туманностей для живой атмосферы
-            if (stars) stars.rotation.y += 0.0002;
-            if (dust)  dust.rotation.y  += 0.0004;
+            // Медленное вращение туманностей
+            nebulaParticles.rotation.z += 0.0005;
 
             renderer.render(scene, camera);
         }
