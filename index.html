@@ -1,330 +1,232 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Anime & Gaming Quiz — Tik-Tok Edition</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      user-select: none;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    body {
-      background: #080711;
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-    }
-
-    .card {
-      width: 100%;
-      max-width: 420px;
-      background: rgba(20, 18, 38, 0.95);
-      border: 2px solid rgba(192, 132, 252, 0.3);
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: 0 0 30px rgba(192, 132, 252, 0.15);
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .title {
-      font-size: 26px;
-      font-weight: 900;
-      background: linear-gradient(135deg, #f472b6, #c084fc, #38bdf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-    }
-
-    .subtitle {
-      font-size: 13px;
-      color: #94a3b8;
-      margin-bottom: 20px;
-    }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 14px;
-      border-radius: 12px;
-      border: 2px solid rgba(192, 132, 252, 0.4);
-      background: rgba(255, 255, 255, 0.05);
-      color: #fff;
-      font-size: 15px;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 14px;
-      outline: none;
-    }
-
-    .btn {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #f472b6, #c084fc);
-      color: #fff;
-      font-size: 15px;
-      font-weight: 800;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      box-shadow: 0 0 15px rgba(244, 114, 182, 0.3);
-      transition: transform 0.1s;
-    }
-
-    .btn:active {
-      transform: scale(0.97);
-    }
-
-    /* Таймер-бар */
-    .timer-container {
-      width: 100%;
-      height: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      margin-bottom: 20px;
-      overflow: hidden;
-    }
-
-    .timer-bar {
-      height: 100%;
-      width: 100%;
-      background: #38bdf8;
-      transition: width 0.1s linear;
-    }
-
-    .question-box {
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 20px;
-      min-height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .options-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .option-btn {
-      padding: 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      background: rgba(255, 255, 255, 0.04);
-      color: #e2e8f0;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      text-align: left;
-      transition: all 0.2s;
-    }
-
-    .option-btn:active {
-      background: rgba(192, 132, 252, 0.2);
-    }
-
-    /* ТАБЛИЦА ЛИДЕРОВ */
-    .leaderboard {
-      margin-top: 20px;
-      text-align: left;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 14px;
-      border-radius: 12px;
-      max-height: 180px;
-      overflow-y: auto;
-    }
-
-    .lb-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      font-size: 13px;
-    }
-
-    .lb-rank {
-      color: #f472b6;
-      font-weight: 800;
-      width: 25px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Deep Space Atmosphere</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #020205;
+            touch-action: none;
+        }
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        #ui-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 2, 5, 0.85);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            font-family: sans-serif;
+            color: #fff;
+            transition: opacity 0.5s ease;
+        }
+        h1 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(100, 150, 255, 0.5);
+        }
+        p {
+            color: #8892b0;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+        button {
+            padding: 14px 32px;
+            font-size: 16px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: #000;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+        }
+    </style>
 </head>
 <body>
 
-  <div class="card" id="start-screen">
-    <div class="title">ANIME & GAME QUIZ</div>
-    <div class="subtitle">⚡ Проверь себя за 3 секунды и заними ТОП-1!</div>
-    
-    <input type="text" id="player-nickname" placeholder="Введи твой ник (для ТОПа)" maxlength="15">
-    <button class="btn" onclick="startQuiz()">НАЧАТЬ ТЕСТ 🚀</button>
-
-    <div class="leaderboard" id="main-lb">
-      <div style="font-weight: 800; font-size: 12px; color: #c084fc; margin-bottom: 8px;">🏆 ТОП ИГРОКОВ:</div>
-      <div id="lb-list"></div>
-    </div>
-  </div>
-
-  <div class="card" id="quiz-screen" style="display: none;">
-    <div class="timer-container">
-      <div class="timer-bar" id="timer-bar"></div>
+    <div id="ui-overlay">
+        <h1>DEEP COSMOS</h1>
+        <p>Нажмите для запуска полноэкранного режима</p>
+        <button onclick="startCosmos()">ИССЛЕДОВАТЬ</button>
     </div>
 
-    <div class="question-box" id="question-text">Загрузка вопроса...</div>
+    <canvas id="spaceCanvas"></canvas>
 
-    <div class="options-grid" id="options-container"></div>
-  </div>
+    <!-- Подключаем Three.js из CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <div class="card" id="result-screen" style="display: none;">
-    <div class="title">РЕЗУЛЬТАТ</div>
-    <div class="subtitle" id="result-score-text">Ты набрал 0 очков!</div>
+    <script>
+        let scene, camera, renderer, stars, dust;
+        let mouseX = 0, mouseY = 0;
+        let targetX = 0, targetY = 0;
+        let windowHalfX = window.innerWidth / 2;
+        let windowHalfY = window.innerHeight / 2;
 
-    <button class="btn" onclick="location.reload()">ПРОЙТИ ЕЩЁ РАЗ 🔄</button>
+        function startCosmos() {
+            // 1. Полный экран и горизонтальный режим
+            const docElement = document.documentElement;
+            if (docElement.requestFullscreen) docElement.requestFullscreen();
+            if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock('landscape').catch(() => {});
+            }
 
-    <div class="leaderboard" style="margin-top: 20px;">
-      <div style="font-weight: 800; font-size: 12px; color: #c084fc; margin-bottom: 8px;">🏆 ТОП ИГРОКОВ:</div>
-      <div id="res-lb-list"></div>
-    </div>
-  </div>
+            // Плавное скрытие меню
+            const overlay = document.getElementById('ui-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => overlay.style.display = 'none', 500);
 
-  <script>
-    // База вопросов (Сюда легко добавлять новые вопросы под твои ролики!)
-    const questions = [
-      {
-        q: "🎵 Из какого аниме опенинг «Unravel»?",
-        options: ["Токийский Гуль", "Атака Титанов", "Клинок рассекающий демонов", "Наруто"],
-        correct: 0
-      },
-      {
-        q: "🗡️ Кто главный герой аниме «Провожающая в последний путь Фрирен»?",
-        options: ["Ферн", "Фрирен", "Штарк", "Гимли"],
-        correct: 1
-      },
-      {
-        q: "🎮 Какая фишка используется для ускорения в Crystal PvP в Minecraft?",
-        options: ["Элитра", "Якорь Возрождения", "Кристалл Энда", "Обсидиан"],
-        correct: 2
-      },
-      {
-        q: "⚡ Сколько духов всего было у Сидо в «Date A Live»?",
-        options: ["5", "8", "10+", "3"],
-        correct: 2
-      }
-    ];
-
-    let currentQ = 0;
-    let score = 0;
-    let timer;
-    let timeLeft = 100; // %
-    let nickname = "Игрок";
-
-    function updateLeaderboardUI() {
-      const lb = JSON.parse(localStorage.getItem('quiz_lb') || '[]');
-      let html = '';
-      lb.sort((a, b) => b.score - a.score);
-
-      lb.slice(0, 5).forEach((item, index) => {
-        html += `
-          <div class="lb-item">
-            <span><span class="lb-rank">#${index + 1}</span> ${item.name}</span>
-            <span style="font-weight:800; color:#38bdf8;">${item.score} очков</span>
-          </div>
-        `;
-      });
-
-      document.getElementById('lb-list').innerHTML = html || 'Пока нет рекордов. Будь первым!';
-      document.getElementById('res-lb-list').innerHTML = html;
-    }
-
-    function startQuiz() {
-      const inputNick = document.getElementById('player-nickname').value.trim();
-      if (inputNick) nickname = inputNick;
-
-      document.getElementById('start-screen').style.display = 'none';
-      document.getElementById('quiz-screen').style.display = 'block';
-
-      showQuestion();
-    }
-
-    function showQuestion() {
-      if (currentQ >= questions.length) {
-        endQuiz();
-        return;
-      }
-
-      const qData = questions[currentQ];
-      document.getElementById('question-text').textContent = qData.q;
-
-      const optsContainer = document.getElementById('options-container');
-      optsContainer.innerHTML = '';
-
-      qData.options.forEach((opt, idx) => {
-        const btn = document.createElement('button');
-        btn.className = 'option-btn';
-        btn.textContent = `${idx + 1}. ${opt}`;
-        btn.onclick = () => checkAnswer(idx);
-        optsContainer.appendChild(btn);
-      });
-
-      startTimer();
-    }
-
-    function startTimer() {
-      clearInterval(timer);
-      timeLeft = 100;
-      const bar = document.getElementById('timer-bar');
-
-      timer = setInterval(() => {
-        timeLeft -= 2.5; // Скорость таймера (примерно 4 секунды на вопрос)
-        bar.style.width = `${timeLeft}%`;
-
-        if (timeLeft <= 0) {
-          clearInterval(timer);
-          checkAnswer(-1); // Время вышло
+            init3D();
         }
-      }, 100);
-    }
 
-    function checkAnswer(selectedIdx) {
-      clearInterval(timer);
-      const qData = questions[currentQ];
+        function init3D() {
+            // Сцена
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x020205, 0.001);
 
-      if (selectedIdx === qData.correct) {
-        score += Math.round(100 * (timeLeft / 100)) + 50; // Бонус за скорость
-      }
+            // Камера
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+            camera.position.z = 1;
 
-      currentQ++;
-      showQuestion();
-    }
+            // Рендерер с сочными настройками цвета
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('spaceCanvas'), antialias: true, powerPreference: "high-performance" });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.2;
 
-    function endQuiz() {
-      document.getElementById('quiz-screen').style.display = 'none';
-      document.getElementById('result-screen').style.display = 'block';
+            // --- СОЗДАЕМ ЗВЕЗДНОЕ НЕБО (Несколько слоев разной глубины) ---
+            createStarLayers();
 
-      document.getElementById('result-score-text').textContent = `${nickname}, твой результат: ${score} очков!`;
+            // --- СОЗДАЕМ КОСМИЧЕСКУЮ ПЫЛЬ / ТУМАННОСТЬ ---
+            createDustClouds();
 
-      // Сохраняем результат
-      let lb = JSON.parse(localStorage.getItem('quiz_lb') || '[]');
-      lb.push({ name: nickname, score: score });
-      localStorage.setItem('quiz_lb', JSON.stringify(lb));
+            // События управления (сенсор и мышь)
+            window.addEventListener('resize', onWindowResize);
+            document.addEventListener('pointermove', onPointerMove);
 
-      updateLeaderboardUI();
-    }
+            // Запуск цикла анимации
+            animate();
+        }
 
-    updateLeaderboardUI();
-  </script>
+        function createStarLayers() {
+            const starsCount = 3000;
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(starsCount * 3);
+            const colors = new Float32Array(starsCount * 3);
+
+            const colorOptions = [
+                new THREE.Color('#ffffff'), // Белые
+                new THREE.Color('#8ab4f8'), // Холодные голубые
+                new THREE.Color('#f28b82'), // Мягкие красные/оранжевые
+                new THREE.Color('#fef08a')  // Желтоватые
+            ];
+
+            for (let i = 0; i < starsCount * 3; i += 3) {
+                // Раскидываем звезды в большой сфере вокруг камеры
+                const u = Math.random();
+                const v = Math.random();
+                const theta = u * 2.0 * Math.PI;
+                const phi = Math.acos(2.0 * v - 1.0);
+                const r = 400 + Math.random() * 600;
+
+                positions[i]     = r * Math.sin(phi) * Math.cos(theta);
+                positions[i + 1] = r * Math.sin(phi) * Math.sin(theta);
+                positions[i + 2] = r * Math.cos(phi);
+
+                const chosenColor = colorOptions[Math.floor(Math.random() * colorOptions.length)];
+                colors[i]     = chosenColor.r;
+                colors[i + 1] = chosenColor.g;
+                colors[i + 2] = chosenColor.b;
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            // Простой кастомный материал с мягкими точками (шейдерный подход через спрайты)
+            const material = new THREE.PointsMaterial({
+                size: 2.5,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8,
+                blending: THREE.AdditiveBlending,
+                sizeAttenuation: true
+            });
+
+            stars = new THREE.Points(geometry, material);
+            scene.add(stars);
+        }
+
+        function createDustClouds() {
+            // Создаем объемные светящиеся облака пыли для глубины пространства
+            const particleCount = 600;
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+
+            for (let i = 0; i < particleCount * 3; i += 3) {
+                positions[i]     = (Math.random() - 0.5) * 800;
+                positions[i + 1] = (Math.random() - 0.5) * 800;
+                positions[i + 2] = (Math.random() - 0.5) * 800;
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 25,
+                color: new THREE.Color('#1b263b'), // Глубокий сине-фиолетовый туман
+                transparent: true,
+                opacity: 0.15,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+
+            dust = new THREE.Points(geometry, material);
+            scene.add(dust);
+        }
+
+        function onPointerMove(event) {
+            // Считаем координаты движения пальца/мыши относительно центра экрана
+            mouseX = (event.clientX - windowHalfX) * 0.001;
+            mouseY = (event.clientY - windowHalfY) * 0.001;
+        }
+
+        function onWindowResize() {
+            windowHalfX = window.innerWidth / 2;
+            windowHalfY = window.innerHeight / 2;
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Плавная инерция камеры за движением пальца (эффект параллакса)
+            targetX += (mouseX - targetX) * 0.05;
+            targetY += (mouseY - targetY) * 0.05;
+
+            camera.rotation.y = targetX * 1.5;
+            camera.rotation.x = targetY * 1.5;
+
+            // Медленное вращение звезд и туманностей для живой атмосферы
+            if (stars) stars.rotation.y += 0.0002;
+            if (dust)  dust.rotation.y  += 0.0004;
+
+            renderer.render(scene, camera);
+        }
+    </script>
 </body>
 </html>
